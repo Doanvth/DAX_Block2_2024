@@ -1,5 +1,7 @@
+using DAX_Block2_2024.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +25,8 @@ namespace DAX_Block2_2024
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<Web_Chia_Se_Tai_LieuContext>(option => option.UseSqlServer(Configuration.GetConnectionString("myTestConect")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +48,9 @@ namespace DAX_Block2_2024
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+      name: "Admin",
+      pattern: "{area:exists}/{controller=Documents}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

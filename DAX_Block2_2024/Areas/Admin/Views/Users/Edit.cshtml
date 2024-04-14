@@ -1,0 +1,152 @@
+﻿@model DAX_Block2_2024.Entities.User
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Edit User</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Validation</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <!-- jquery validation -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Please fill full fields</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form id="quickForm" asp-action="EditUser">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="Id" class="control-label"></label>
+                                <input asp-for="Id" class="form-control" />
+                                <span asp-validation-for="Id" class="text-danger"></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 form-group">
+                                    <label asp-for="UserName" class="control-label"></label>
+                                    <input asp-for="UserName" class="form-control" />
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                    <label asp-for="PassWord" class="control-label"></label>
+                                    <input asp-for="PassWord" class="form-control" />
+                                    <span asp-validation-for="PassWord" class="text-danger"></span>
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                    <label asp-for="FullName" class="control-label"></label>
+                                    <input asp-for="FullName" class="form-control" />
+                                    <span asp-validation-for="FullName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 form-group">
+                                    <label asp-for="BirthDay" class="control-label"></label>
+                                    <input asp-for="BirthDay" class="form-control" />
+                                    <span asp-validation-for="BirthDay" class="text-danger"></span>
+                                </div>
+                                <div class="col-lg-4 form-group clearfix">
+                                    <label>Gender</label>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="icheck-primary">
+                                                <input type="radio" id="radioPrimary1" name="r1" checked="">
+                                                <label for="radioPrimary1">
+                                                    Male
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="icheck-primary">
+                                                <input type="radio" id="radioPrimary2" name="r1">
+                                                <label for="radioPrimary2">
+                                                    Female
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                
+                                <div class="col-lg-4 form-group">
+                                    <label asp-for="Address" class="control-label"></label>
+                                    <input asp-for="Address" class="form-control" />
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 form-group">
+                                    <label asp-for="PhoneNumber" class="control-label"></label>
+                                    <input asp-for="PhoneNumber" class="form-control" />
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                    <label asp-for="AccountRate" class="control-label"></label>
+                                    <input asp-for="AccountRate" class="form-control" />
+                                    <span asp-validation-for="AccountRate" class="text-danger"></span>
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                    <label asp-for="AccountPoint" class="control-label"></label>
+                                    <input asp-for="AccountPoint" class="form-control" />
+                                    <span asp-validation-for="AccountPoint" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 form-group">
+                                    <label asp-for="Email" class="control-label"></label>
+                                    <input asp-for="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                    <label>Status</label>
+                                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
+                                            data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                        <option selected="selected" data-select2-id="3">Online</option>
+                                        <option data-select2-id="35">Offline</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                    <label asp-for="RoleId" class="control-label"></label>
+                                    <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
+                                    <span asp-validation-for="RoleId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card -->
+            </div>
+            <!--/.col (left) -->
+            <!-- right column -->
+            <div class="col-md-6">
+            </div>
+            <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

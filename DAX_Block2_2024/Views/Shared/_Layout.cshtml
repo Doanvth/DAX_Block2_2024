@@ -1,48 +1,257 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - DAX_Block2_2024</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish">
+    <link rel="stylesheet" href="~/css/style.css">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg bg-109BE9 fixed-top z-2 p-2 ps-5 border-bottom border-white">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DAX_Block2_2024</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item nav-hover me-3">
+                            <a class="nav-link text-white fw-semibold">News</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <li class="nav-item nav-hover me-3">
+                            <a class="nav-link text-white fw-semibold">Innovation</a>
+                        </li>
+                        <li class="nav-item nav-hover me-3">
+                            <a class="nav-link text-white fw-semibold">Science</a>
+                        </li>
+                        <li class="nav-item nav-hover me-3">
+                            <a class="nav-link text-white fw-semibold">Industry</a>
+                        </li>
+                        <li class="nav-item dropdown fw-semibold">
+                            <a class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                More
+                            </a>
+                            <ul class="dropdown-menu border-0 rounded-0 shadow-sm" style="background-color: rgba(244, 243, 243, 0.94)">
+                                <li><a class="nav-hover dropdown-item fw-semibold" href="#">Action</a></li>
+                                <li><a class="nav-hover dropdown-item fw-semibold" href="#">Another action</a></li>
+                                <li><a class="nav-hover dropdown-item fw-semibold" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pe-5">
+                    <ul class="navbar-nav">
+                        <li class="nav-item nav-hover me-3">
+                            <a class="nav-link text-white fw-semibold">IG</a>
+                        </li>
+                        <li class="nav-item nav-hover me-3">
+                            <a class="nav-link text-white fw-semibold">TW</a>
+                        </li>
+                        <li class="nav-item nav-hover me-3">
+                            <a class="nav-link text-white fw-semibold">FB</a>
+                        </li>
+                        <li class="nav-item nav-hover">
+                            <a class="nav-link text-white fw-semibold">YT</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <nav class="navbar navbar-expand-lg bg-109BE9 fixed-top mt-5 z-1 p-2 ps-5 border-bottom border-white">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="img/3.jpg" alt="Bootstrap" width="45" height="45">
+                </a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item text-white nav-hover me-3">
+                            <a class="nav-link fw-semibold text-white active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item nav-hover me-3">
+                            <a class="nav-link fw-semibold text-white" href="#">Document</a>
+                        </li>
+                        <li class="nav-item nav-hover me-3">
+                            <a class="nav-link fw-semibold text-white" href="#">Gellery</a>
+                        </li>
+                        <li class="nav-item nav-hover me-3">
+                            <a class="nav-link fw-semibold text-white" href="#">News</a>
+                        </li>
+                        <li class="nav-item nav-hover me-3">
+                            <a class="nav-link fw-semibold text-white" href="#">About</a>
+                        </li>
+                        <li class="nav-item nav-hover me-3">
+                            <a class="nav-link fw-semibold text-white" href="#">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pe-4 text-white"><i class="bi bi-search"></i></div>
+                <div class="pe-5" id="navbarNavDropdown">
+                    <button type="button"
+                            class="btn custom-btn-orange text-white bg-F36326 hover-button-F36326 fw-bold">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="container-fluid mt-120">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - DAX_Block2_2024 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+    <footer>
+        <div class="container mt-120">
+            <div class="row text-white bg-109BE9">
+                <div class="row">
+                    <div class="col-xl-6 align-self-center pt-104 ps-104">
+                        <span class="fw-bold" style="font-size: 62px;">Sign Up for Our Newsletters</span>
+                    </div>
+                    <div class="col-xl-6 fs-16 align-self-center mt-60 pe-104">
+                        <span class="d-flex">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. Lorem ipsum
+                            dolor sit amet,
+                            consectetur adipiscing elit, sed do eiusmod.
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-9 pb-104 ps-104">
+                        <input type="text" class="rounded-2 p-3 border-0 fs-24" placeholder="Input your email address here"
+                               style="height: 56px; width: 911px;">
+                    </div>
+                    <div class="col-xl-3 pe-104">
+                        <button class="btn text-white bg-F36326 float-end fs-16 hover-button-F36326"
+                                style="height: 56px; width: 164px;" type="button">
+                            Subcribe Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5 fs-16">
+                <div class="col-xl-5">
+                    <div class="col-xl-6">
+                        <img src="img/3.jpg" class="img-fluid" alt="" style="width: 27px; height: 27px;">
+                        <h6 class="text-wrap pt-3">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. Lorem
+                            ipsum
+                            dolor sit amet,
+                            consectetur adipiscing elit, sed do eiusmod.
+                        </h6>
+                    </div>
+                </div>
+                <div class="row col-xl-7">
+                    <div class="col-xl-4">
+                        <div class="float-end">
+                            <ul class="list-unstyled">
+                                <li class="mb-2 fw-bold">
+                                    <a class="link-dark text-decoration-none">Categories</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link-dark text-decoration-none">International</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link-dark text-decoration-none">Regional</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link-dark text-decoration-none">Politics</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link-dark text-decoration-none">Business</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link-dark text-decoration-none">Industry</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link-dark text-decoration-none">Science</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-4">
+                        <div class="float-end">
+                            <ul class="list-unstyled">
+                                <li class="mb-2 fw-bold">
+                                    <a class="link-dark text-decoration-none">Company</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link-dark text-decoration-none">About Us</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link-dark text-decoration-none">Careers</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link-dark text-decoration-none">Privacy Policy</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link-dark text-decoration-none">Terms Of Services</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link-dark text-decoration-none">Contact Us</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-4">
+                        <div class="float-end">
+                            <ul class="list-unstyled">
+                                <li class="mb-2 fw-bold">
+                                    <a class="link-dark text-decoration-none">Social Media</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link-dark text-decoration-none">Youtube</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link-dark text-decoration-none">Instagram</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link-dark text-decoration-none">Facebook</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link-dark text-decoration-none">Twitter</a>
+                                </li>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-xl-11">
+                        <p class="fs-16 color-9A9AB0 fw-bold">Copyright FploCT_IT_Team</p>
+                    </div>
+                    <div class="col-xl-1">
+                        <select class="form-select border-0" aria-label="Default select example">
+                            <option selected>ENG</option>
+                            <option value="1">VN</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        var navs = document.querySelectorAll('nav');
+        var firstNav = navs[0];
+        var secondNav = navs[1];
+        window.addEventListener('scroll', function (event) {
+            event.preventDefault();
+            navs.forEach(function (nav) {
+                if (window.scrollY >= 100 || window.pageYOffset >= 100) {
+                    firstNav.style.backgroundColor = 'rgb(53, 55, 61)';
+                    secondNav.style.backgroundColor = 'rgb(53, 55, 61)';
+                } else {
+                    firstNav.style.backgroundColor = '#109be9';
+                    secondNav.style.backgroundColor = '#109be9';
+                }
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

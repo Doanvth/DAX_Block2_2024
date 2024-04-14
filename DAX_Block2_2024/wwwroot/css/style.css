@@ -1,0 +1,125 @@
+body {
+	font-family: "Mulish", sans-serif;
+}
+
+.carousel-item {
+	height: 100vh;
+	min-height: 300px;
+}
+
+.bg-1 {
+	background-image: url(img/1.jpg);
+}
+
+.bg-1 {
+	-webkit-background-size: cover;
+	background-size: cover;
+}
+
+.carousel-caption {
+	bottom: 220px;
+	z-index: 2;
+}
+
+.carousel-caption h5 {
+	font-size: 85px;
+	text-transform: capitalize;
+	letter-spacing: 2px;
+	margin-top: 25px;
+	font-family: 'Moon Dance', cursive;
+}
+
+/* font-size */
+.fs-12 {
+	font-size: 12px;
+}
+
+.fs-16 {
+	font-size: 16px;
+}
+
+.fs-24 {
+	font-size: 24px;
+}
+
+.fs-62 {
+	font-size: 62px;
+}
+
+/* color */
+.color-9A9AB0 {
+	color: #9A9AB0;
+}
+
+/* background-color */
+.bg-F36326 {
+	background-color: #F36326;
+}
+
+.bg-109BE9 {
+	background-color: #109BE9;
+}
+
+/* margin */
+.mt-60 {
+	margin-top: 60px;
+}
+
+.mt-111 {
+	margin-top: 111px;
+}
+
+.mt-120 {
+	margin-top: 120px;
+}
+
+/* padding */
+.pt-104 {
+	padding-top: 104px;
+}
+
+.pb-104 {
+	padding-bottom: 104px;
+}
+
+.ps-104 {
+	padding-left: 104px;
+}
+
+.pe-104 {
+	padding-right: 104px;
+}
+
+/* hover */
+.hover-list-header:hover {
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+.custom-btn-orange:hover {
+	background-color: #2660f3;
+}
+
+.hover-list-popular:hover {
+	background-color: rgba(242, 242, 242, 0.4);
+}
+
+.hover-button-F36326:hover {
+	background-color: #f78d5f;
+}
+
+.dropdown:hover>.dropdown-menu {
+	display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+	pointer-events: none;
+}
+
+.nav-hover:hover {
+	text-decoration: underline double white;
+}
+
+/* custom */
+.custom-link {
+	text-decoration: none;
+}

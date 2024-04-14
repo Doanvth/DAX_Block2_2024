@@ -26,8 +26,7 @@ namespace DAX_Block2_2024
         {
             services.AddControllersWithViews();
             services.AddDbContext<Web_Chia_Se_Tai_LieuContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DBConect")));
-            services.AddMvc()
-                    .AddSessionStateTempDataProvider();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +40,7 @@ namespace DAX_Block2_2024
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -50,8 +50,13 @@ namespace DAX_Block2_2024
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "Admin",
+                    pattern: "{area:exists}/{controller=Documents}/{action=Index}/{id?}"
+);
+                endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=HomeUser}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
             });
         }
     }

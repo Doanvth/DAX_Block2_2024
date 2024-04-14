@@ -17,9 +17,9 @@ namespace DAX_Block2_2024.Entities
         public string Description { get; set; }
         public string Content { get; set; }
         public string Image { get; set; }
+        public bool Status { get; set; }
         public DateTime CreateDate { get; set; }
         public int CreateBy { get; set; }
-        public bool? Status { get; set; }
 
         public virtual User CreateByNavigation { get; set; }
         public virtual ICollection<SubjectsNews> SubjectsNews { get; set; }

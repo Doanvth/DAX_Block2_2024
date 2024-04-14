@@ -35,7 +35,7 @@ namespace DAX_Block2_2024.Entities
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=HAIVAN\\SQLEXPRESS01;Initial Catalog=Web_Chia_Se_Tai_Lieu;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+                optionsBuilder.UseSqlServer("Data Source=minhphuoc\\sqlexpress;Initial Catalog=Web_Chia_Se_Tai_Lieu;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
             }
         }
 
@@ -51,6 +51,8 @@ namespace DAX_Block2_2024.Entities
                     .IsRequired()
                     .HasMaxLength(250)
                     .HasColumnName("name");
+
+                entity.Property(e => e.Status).HasColumnName("status");
             });
 
             modelBuilder.Entity<Comment>(entity =>
@@ -67,6 +69,8 @@ namespace DAX_Block2_2024.Entities
                     .HasColumnName("create_date");
 
                 entity.Property(e => e.DocumentId).HasColumnName("document_id");
+
+                entity.Property(e => e.Status).HasColumnName("status");
 
                 entity.Property(e => e.UsersId).HasColumnName("users_id");
 
@@ -102,15 +106,15 @@ namespace DAX_Block2_2024.Entities
                     .HasMaxLength(4000)
                     .HasColumnName("description");
 
-                entity.Property(e => e.FilePath)
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .HasColumnName("file_path");
+                entity.Property(e => e.FilePath).HasColumnName("file_path");
 
-                entity.Property(e => e.Image)
+                entity.Property(e => e.Files)
+                    .IsRequired()
                     .HasMaxLength(250)
                     .IsUnicode(false)
-                    .HasColumnName("image");
+                    .HasColumnName("files");
+
+                entity.Property(e => e.Image).HasColumnName("image");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -199,10 +203,7 @@ namespace DAX_Block2_2024.Entities
                     .HasMaxLength(4000)
                     .HasColumnName("description");
 
-                entity.Property(e => e.Image)
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .HasColumnName("image");
+                entity.Property(e => e.Image).HasColumnName("image");
 
                 entity.Property(e => e.Status).HasColumnName("status");
 
@@ -267,6 +268,8 @@ namespace DAX_Block2_2024.Entities
                     .IsRequired()
                     .HasMaxLength(250)
                     .HasColumnName("name");
+
+                entity.Property(e => e.Status).HasColumnName("status");
             });
 
             modelBuilder.Entity<SubjectsNews>(entity =>

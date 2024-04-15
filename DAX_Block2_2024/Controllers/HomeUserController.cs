@@ -41,7 +41,6 @@ namespace DAX_Block2_2024.Controllers
         }
 
         // GET: HomeUser
-        [Route("/")]
         public async Task<IActionResult> Index(int page = 1)
         {
             int pageSize = 2;

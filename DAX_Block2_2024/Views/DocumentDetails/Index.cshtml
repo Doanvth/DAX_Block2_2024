@@ -1,0 +1,231 @@
+﻿@model DAX_Block2_2024.Controllers.DocumentDetailsController.ViewModelDocDetails
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row" style="padding-top: 40px;">
+        <div class="col-xl-2">@Model.DocumentDetails.CategoriesId</div>
+        <div class="col-xl-10">@Model.DocumentDetails.DatePost.Date.ToShortDateString()</div>
+    </div>
+    <p class="fs-62 fw-bold pt-40" style="padding-top: 40px;">@Model.DocumentDetails.Content</p>
+    <div class="row mt-40" style="padding-top: 40px;">
+        <div class="col-xl-1">
+            <img src="~/images/1.jpg" style="width: 48px; height: 48px;" class="rounded-circle img-fluid" alt="">
+        </div>
+        <div class="col-xl-11">
+            <p class="fs-16 fw-bold d-flex align-items-center pt-2">@Model.DocumentDetails.PostByNavigation.FullName</p>
+        </div>
+    </div>
+    <div class="row pt-40" style="padding-top: 40px;">
+        <div class="col-xl-1">
+            <i class="fa-regular fa-heart" style="color: #109be9;"></i> 123
+        </div>
+        <div class="col-xl-1">
+            <i class="fa-regular fa-message" style="color: #109be9;"></i> 123
+        </div>
+        <div class="col-xl-1">
+            <i class="fa-solid fa-share-nodes" style="color: #109be9;"></i></i> 123
+        </div>
+        <div class="col-xl-1">
+            <i class="fa-solid fa-download" style="color: #109be9;"></i> 123
+        </div>
+    </div>
+    <img src="~/images/1.jpg" class="img-fluid w-100" alt="Not Img" style="padding-top: 40px;">
+    <div class="col-xl-10" style="padding-top: 40px;">
+        <p class="fs-16 color-9A9AB0">@Model.DocumentDetails.Description</p>
+    </div>
+    <div class="row" style="padding-top: 40px;">
+        <div class="col-xl-1">
+            <img src="~/images/1.jpg" style="width: 48px; height: 48px;" class="rounded-circle img-fluid" alt="">
+        </div>
+        <div class="col-xl-11">
+            <textarea id="message" name="message" rows="5" cols="99%" placeholder="Enter your message"></textarea>
+            <br>
+            <button class="btn bg-F36326 hover-button-F36326 text-white fw-bold" style="margin-top: 15px;">
+                Post
+                Comment
+            </button>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 40px;">
+        <div class="col-xl-1">
+            <img src="~/images/1.jpg" style="width: 48px; height: 48px;" class="rounded-circle img-fluid" alt="">
+        </div>
+        <div class="col-xl-11">
+            <div class="row">
+                <div class="col-xl-2">
+                    <p class="color-9A9AB0 fw-semibold fs-16">@Model.DocumentDetails.PostByNavigation.FullName</p>
+                </div>
+                <div class="col-xl-3">
+                    <p class="color-9A9AB0 fw-semibold fs-16">@Model.DocumentDetails.DatePost.Date.ToShortDateString()</p>
+                </div>
+            </div>
+            <br>
+            <p class="fs-16">coment</p>
+        </div>
+    </div>
+
+    <div class="popular-document mt-120">
+        <div class="row">
+            <div class="col-xl-10">
+                <h4 class="fw-bold">Another Document</h4>
+            </div>
+            <div class="col-xl-2">
+                <button class="btn text-white border-0 hover-button-F36326 float-end bg-F36326">View All</button>
+            </div>
+        </div>
+        <div class="row mt-5">
+            @foreach (var item in Model.Document)
+            {
+                <div class="col-xl-7">
+                    <a href="" class="custom-link pt-2 pb-2">
+                        <div class="card border-0 hover-list-popular">
+                            <div class="position-relative">
+                                <img src="~/images/1.jpg" class="img-fluid" alt="Not Image">
+                                <div class="position-absolute bottom-0">
+                                    <div class="btn rounded-0 border-0 bg-white color-9A9AB0">
+                                        @foreach (var newsSubject in item.DocumentsCategories)
+                                        {
+                                            <span>@newsSubject.Categories.Name</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <p class="fs-24 card-title fw-medium">
+                                    @item.Content
+                                </p>
+                                <div class="row card-text fs-12 color-9A9AB0">
+                                    <div class="col-xl-4">@item.PostByNavigation.FullName</div>
+                                    <div class="col-xl-8">@item.DatePost.Date.ToShortDateString()</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+            <div class="col-xl-5">
+                <div class="row hover-list-popular pt-2 pb-2">
+                    @foreach (var item in Model.Document3)
+                    {
+                        <a href="" class="custom-link pt-2 pb-2">
+                            <div class="col-xl-4 col-sm-4">
+                                <img class="img-fluid h-100" src="~/images/1.jpg" alt="">
+                            </div>
+                            <div class="col-xl-8 col-sm-8 mt-2 mb-2">
+                                <a href="" class="fs-24 custom-link fw-medium text-black lh-sm">
+                                    @item.Content
+                                </a>
+                                <div class="row color-9A9AB0">
+                                    <div class="col-xl-3 col-sm-6 fs-12">@item.PostByNavigation.FullName</div>
+                                    <div class="col-xl-9 col-sm-6 fs-12">@item.DatePost.Date.ToShortDateString()</div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<@* p>
+    <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+    <thead>
+    <tr>
+    <th>
+    @Html.DisplayNameFor(model => model.Name)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Description)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Content)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.DatePost)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Image)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.FilePath)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Rate)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Status)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Price)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.TagsId)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.CategoriesId)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.PostByNavigation)
+    </th>
+    <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+    <tr>
+    <td>
+    @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Content)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.DatePost)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Image)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.FilePath)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Rate)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Status)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Price)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.TagsId)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.CategoriesId)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.PostByNavigation.Address)
+    </td>
+    <td>
+    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+    </td>
+    </tr>
+    }
+    </tbody>
+    </table> *@

@@ -17,6 +17,7 @@ namespace DAX_Block2_2024.Controllers
         public IList<News> News { get; set; }
         public IList<News> NewsFull { get; set; }
         public PagingInfo PagingInfo { get; set; }
+        public IList<Category> Category3 { get; set; }
     }
     public class ViewModelPaging<T>
     {
@@ -73,6 +74,11 @@ namespace DAX_Block2_2024.Controllers
                 .Include(d => d.CreateByNavigation)
                 .ToListAsync();
 
+            var categoryList = await _context.Categories
+              .OrderByDescending(d => d.Id)
+              .Take(3)
+              .ToListAsync();
+
             var paginatedDocuments = newFull.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
             var viewModel = new ViewModel
@@ -82,6 +88,7 @@ namespace DAX_Block2_2024.Controllers
                 News = web_Chia_Se_Tai_LieuContext2,
                 News3 = web_Chia_Se_Tai_LieuContext3,
                 NewsFull = paginatedDocuments,
+                Category3 = categoryList,
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,

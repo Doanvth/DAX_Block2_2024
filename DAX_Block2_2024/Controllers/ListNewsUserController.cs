@@ -19,6 +19,7 @@ namespace DAX_Block2_2024.Controllers
         }
 
         // GET: ListNewsUser
+
         public async Task<IActionResult> Index()
         {
             var web_Chia_Se_Tai_LieuContext = _context.News.Include(n => n.CreateByNavigation);

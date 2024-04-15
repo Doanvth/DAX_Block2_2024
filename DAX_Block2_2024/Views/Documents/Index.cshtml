@@ -1,0 +1,302 @@
+﻿@model IEnumerable<DAX_Block2_2024.Entities.Document>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <style>
+        body {
+            font-family: "Mulish", sans-serif;
+        }
+
+        .carousel-item {
+            height: 100vh;
+            min-height: 300px;
+        }
+
+        .bg-1 {
+            background-image: url(img/1.jpg);
+        }
+
+        .bg-1 {
+            -webkit-background-size: cover;
+            background-size: cover;
+        }
+
+        .carousel-caption {
+            bottom: 220px;
+            z-index: 2;
+        }
+
+            .carousel-caption h5 {
+                font-size: 85px;
+                text-transform: capitalize;
+                letter-spacing: 2px;
+                margin-top: 25px;
+                font-family: 'Moon Dance', cursive;
+            }
+
+        /* font-size */
+        .fs-12 {
+            font-size: 12px;
+        }
+
+        .fs-16 {
+            font-size: 16px;
+        }
+
+        .fs-24 {
+            font-size: 24px;
+        }
+
+        .fs-62 {
+            font-size: 62px;
+        }
+
+        /* color */
+        .color-9A9AB0 {
+            color: #9A9AB0;
+        }
+
+        /* background-color */
+        .bg-F36326 {
+            background-color: #F36326;
+        }
+
+        .bg-109BE9 {
+            background-color: #109BE9;
+        }
+
+        /* margin */
+        .mt-60 {
+            margin-top: 60px;
+        }
+
+        .mt-111 {
+            margin-top: 111px;
+        }
+
+        .mt-120 {
+            margin-top: 120px;
+        }
+
+        /* padding */
+        .pt-104 {
+            padding-top: 104px;
+        }
+
+        .pb-104 {
+            padding-bottom: 104px;
+        }
+
+        .ps-104 {
+            padding-left: 104px;
+        }
+
+        .pe-104 {
+            padding-right: 104px;
+        }
+
+        /* hover */
+        .hover-list-header:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .custom-btn-orange:hover {
+            background-color: #2660f3;
+        }
+
+        .hover-list-popular:hover {
+            background-color: rgba(242, 242, 242, 0.4);
+        }
+
+        .hover-button-F36326:hover {
+            background-color: #f78d5f;
+        }
+
+        .dropdown:hover > .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown > .dropdown-toggle:active {
+            pointer-events: none;
+        }
+
+        .nav-hover:hover {
+            text-decoration: underline double white;
+        }
+
+        /* custom */
+        .custom-link {
+            text-decoration: none;
+        }
+    </style>
+    <div class="container">
+        <h1>List Documents</h1>
+        @foreach (var document in Model)
+        {
+            <div class="row">
+                <div class="col-xl-5 pb-3">
+                    <img src="~/images/@document.Image" class="pe-4 h-100 w-100 img-fluid" alt="@document.Image">
+                </div>
+                <div class="col-xl-7 shopping-mall">
+                    <p class="fs-24 fw-bold ">
+                        @document.Content
+                    </p>
+                    <div class="row color-9A9AB0">
+                        <div class="col-xl-4">
+                            <p>@document.PostByNavigation.UserName</p>
+                        </div>
+                        <div class="col-xl-6">
+                            <p>@document.DatePost.Date.ToShortDateString()</p>
+                        </div>
+                    </div>
+                    <p class="justify-content-around">
+                        @document.Description
+                    </p>
+                </div>
+            </div>
+            <br />
+        }
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">></a>
+                </li>
+            </ul>
+        </nav>
+        <header>
+            <!-- place navbar here -->
+        </header>
+        <main></main>
+        <footer>
+            <!-- place footer here -->
+        </footer>
+        <!-- Bootstrap JavaScript Libraries -->
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+                integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+                crossorigin="anonymous"></script>
+</body>
+
+</html>
+@* <h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DatePost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FilePath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TagsId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoriesId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostByNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatePost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FilePath)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TagsId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoriesId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostByNavigation.UserName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table> *@

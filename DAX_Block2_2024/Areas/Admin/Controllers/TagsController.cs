@@ -20,7 +20,6 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         }
 
         // GET: Admin/Tags
-        [HttpGet("Index")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Tags.ToListAsync());

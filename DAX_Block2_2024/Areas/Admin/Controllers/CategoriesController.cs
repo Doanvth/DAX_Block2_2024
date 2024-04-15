@@ -19,7 +19,6 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
             _context = context;
         }
 
-        [HttpGet("Index")]
         // GET: Admin/Categories
         public async Task<IActionResult> Index()
         {
@@ -45,7 +44,6 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         }
 
         // GET: Admin/Categories/Create
-        [HttpGet("Create")]
         public IActionResult Create()
         {
             return View();
@@ -56,7 +54,7 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateCategory([Bind("Id,Name")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +64,6 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
             }
             return View(category);
         }
-        [HttpGet("Edit")]
         // GET: Admin/Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

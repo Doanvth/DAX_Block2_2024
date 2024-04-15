@@ -33,7 +33,6 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
             _environment = environment;
         }
 
-        [HttpGet("Index")]
         // GET: Admin/Documents
         public async Task<IActionResult> Index()
         {

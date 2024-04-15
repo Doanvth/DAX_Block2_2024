@@ -18,7 +18,6 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         {
             _context = context;
         }
-        [HttpGet("Index")]
 
         // GET: Admin/Users
         public async Task<IActionResult> Index()
@@ -45,7 +44,6 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
 
             return View(user);
         }
-        [HttpGet("Create")]
         // GET: Admin/Users/Create
         public IActionResult Create()
         {
@@ -58,7 +56,7 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateUser([Bind("Id,UserName,PassWord,FullName,BirthDay,Gender,Address,PhoneNumber,AccountRate,AccountPoint,Email,Status,RoleId")] User user)
+        public async Task<IActionResult> Create([Bind("Id,UserName,PassWord,FullName,BirthDay,Gender,Address,PhoneNumber,AccountRate,AccountPoint,Email,Status,RoleId")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -71,7 +69,6 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         }
 
         // GET: Admin/Users/Edit/5
-        [HttpGet("Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -123,7 +120,6 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
             ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Name", user.RoleId);
             return View(user);
         }
-        [HttpGet("Delete")]
         // GET: Admin/Users/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

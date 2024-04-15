@@ -49,10 +49,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index.html" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
+                    <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="nav-link">Home</a>
                 </li>
             </ul>
 
@@ -105,16 +102,16 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index.html" class="brand-link">
-                <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                <img src="~/images/logouser.png" alt="Doc Logo" class="brand-image img-circle elevation-3"
                      style="opacity: .8">
-                <span class="brand-text font-weight-light">Hoàng Thịnh đẹp trai</span>
+                <span class="brand-text font-weight-light">Document Share</span>
             </a>
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item">
-                        <a href="pages/widgets.html" class="nav-link">
+                        <a asp-controller="HomeAdmin" asp-action="Index" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Widgets
@@ -123,7 +120,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a asp-controller="HomeAdmin" asp-action="Index" class="nav-link">
                             <i class="nav-icon fas fa-chart-pie"></i>
                             <p>
                                 Charts
@@ -131,7 +128,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a asp-controller="Users" asp-action="Index" class="nav-link">
                             <i class="fas fa-id-card nav-icon"></i>
                             <p>
                                 Users
@@ -140,21 +137,15 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/users/view.html" class="nav-link">
+                                <a asp-controller="Users" asp-action="Index" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Users</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/users/add.html" class="nav-link">
+                                <a asp-controller="Users" asp-action="Create" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Users</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/users/edit.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Update Users</p>
                                 </a>
                             </li>
                         </ul>
@@ -180,12 +171,6 @@
                                     <p>Add Documents</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="pages/documents/edit.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Update Document</p>
-                                </a>
-                            </li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -198,21 +183,15 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/categories/view.html" class="nav-link">
+                                <a asp-controller="Categories" asp-action="Index" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Categories</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/categories/add.html" class="nav-link">
+                                <a asp-controller="Categories" asp-action="Create" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Categories</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/categories/edit.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Update Categories</p>
                                 </a>
                             </li>
                         </ul>
@@ -238,16 +217,10 @@
                                     <p>Add News</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="pages/news/edit.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Update News</p>
-                                </a>
-                            </li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a asp-controller="Tags" asp-action="Index" class="nav-link">
                             <i class="fas fa-tags nav-icon"></i>
                             <p>
                                 Tags
@@ -256,21 +229,15 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/tags/view.html" class="nav-link">
+                                <a asp-controller="Tags" asp-action="Index" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Tags</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/tags/add.html" class="nav-link">
+                                <a asp-controller="Tags" asp-action="Create" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Tags</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/tags/edit.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Update Tags</p>
                                 </a>
                             </li>
                         </ul>
@@ -358,7 +325,7 @@
 
 
     <div class="content-wrapper">
-      @RenderBody()
+        @RenderBody()
     </div>
     <footer class="main-footer">
         <strong>By</strong> Lê Thị Hải Vân - Tạ Minh Phước - Lê Minh Hiếu - Lê Văn Quí - Lê Hoàng Thịnh - Lê Tấn Bảo

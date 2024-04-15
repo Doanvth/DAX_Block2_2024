@@ -6,6 +6,7 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
     {
         [Area("Admin")]
         [Route("/")]
+
         public IActionResult Index()
         {
             return View();

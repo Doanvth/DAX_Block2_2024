@@ -1,0 +1,286 @@
+﻿@model DAX_Block2_2024.Controllers.ViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row carousel slide" data-bs-ride="carousel">
+    <img class="img-fluid" src="~/images/bg-header.png" alt="">
+    <div class="container row position-absolute d-flex justify-content-center text-white">
+        <div class="col-xl-6 col-sm-7 mt-60">
+            <div class="row">
+                <div class="col-xl-2 col-sm-2">Inovation</div>
+                <div class="col-xl-4 col-sm-4">2 Hours ago</div>
+            </div>
+            <div class="pe-5 mt-111">
+                <h2 class="fw-bold fs-62">Change Two Devices at the Same Time</h2>
+                <h2 class="fw-bold fs-62">With This Magnetic</h2>
+                <h2 class="fw-bold fs-62">Wireless Charging</h2>
+                <h2 class="fw-bold fs-62">Dock</h2>
+            </div>
+        </div>
+        <div class="col-xl-6 col-sm-5 mt-60" style="width: 505px;">
+            <div style="background-color: rgba(255, 255, 255, 0.2);">
+                <div class="content p-4">
+                    <h3 class="fw-bold mb-3" style="font-size: 31px;">Popular this week</h3>
+                    @foreach (var item in Model.Document)
+                    {
+                        <a class="custom-link">
+                            <div class="row hover-list-header mb-3">
+                                <div class="col-xl-4 col-sm-4">
+                                    <img class="img-fluid h-100" src="@item.Image" alt="Not Image">
+                                </div>
+                                <div class="col-xl-8 col-sm-8 mb-2">
+                                    <div class="row pb-3 text-white">
+                                        <div class="col-xl-3 col-sm-6 fs-12">@item.PostByNavigation.FullName</div>
+                                        <div class="col-xl-9 col-sm-6 fs-12">@item.DatePost.Date.ToShortDateString()</div>
+                                    </div>
+                                    <p class="fs-16 fw-medium text-white">
+                                        @item.Content
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="our-lateset-post mt-120 ">
+        <div class="row">
+            <div class="col-xl-10">
+                <h4 class="fw-bold">Our Lateset Post</h4>
+            </div>
+            <div class="col-xl-2">
+                <button class="btn text-white bg-F36326 hover-button-F36326 border-0 float-end">View All</button>
+            </div>
+        </div>
+        <div class="row mt-5">
+            @foreach (var item in Model.Document8)
+            {
+                <div class="col-xl-3 mb-4">
+                    <a href="" class="custom-link">
+                        <div class="card border-0 hover-list-popular">
+                            <div class="position-relative">
+                                <img src="@item.Image" class="img-fluid" alt="Not Image">
+                                <div class="position-absolute bottom-0">
+                                    <div class="btn rounded-0 border-0 bg-white color-9A9AB0">@item.CategoriesId</div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-title fw-bold fs-24">
+                                    @item.Name
+                                </p>
+                                <div class="row card-text fs-12 color-9A9AB0">
+                                    <div class="col-xl-4">@item.CategoriesId</div>
+                                    <div class="col-xl-8">@item.DatePost.Date.ToShortDateString()</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+
+        </div>
+    </div>
+    <div class="popular-document mt-120">
+        <div class="row">
+            <div class="col-xl-10">
+                <h4 class="fw-bold">Popular News</h4>
+            </div>
+            <div class="col-xl-2">
+                <button class="btn text-white border-0 hover-button-F36326 float-end bg-F36326">View All</button>
+            </div>
+        </div>
+        <div class="row mt-5">
+            @foreach (var item in Model.News)
+            {
+                <div class="col-xl-7">
+                    <a href="" class="custom-link pt-2 pb-2">
+                        <div class="card border-0 hover-list-popular">
+                            <div class="position-relative">
+                                <img src="~/images/1.jpg" class="img-fluid" alt="Not Image">
+                                <div class="position-absolute bottom-0">
+                                    <div class="btn rounded-0 border-0 bg-white color-9A9AB0">
+                                        @foreach (var newsSubject in item.SubjectsNews)
+                                        {
+                                            <span>@newsSubject.Subject.Name</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <p class="fs-24 card-title fw-medium">
+                                    @item.Title
+                                </p>
+                                <div class="row card-text fs-12 color-9A9AB0">
+                                    <div class="col-xl-4">@item.CreateByNavigation.FullName</div>
+                                    <div class="col-xl-8">@item.CreateDate.Date.ToShortDateString()</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+            <div class="col-xl-5">
+                <div class="row hover-list-popular pt-2 pb-2">
+                    @foreach (var item in Model.News)
+                    {
+                        <a href="" class="custom-link pt-2 pb-2">
+                            <div class="col-xl-4 col-sm-4">
+                                <img class="img-fluid h-100" src="~/images/1.jpg" alt="">
+                            </div>
+                            <div class="col-xl-8 col-sm-8 mt-2 mb-2">
+                                <a href="" class="fs-24 custom-link fw-medium text-black lh-sm">
+                                    @item.Title
+                                </a>
+                                <div class="row color-9A9AB0">
+                                    <div class="col-xl-3 col-sm-6 fs-12">@item.CreateBy</div>
+                                    <div class="col-xl-9 col-sm-6 fs-12">@item.CreateDate.Date.ToShortDateString()</div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="recommended-for-you mt-120">
+        <div class="row">
+            <div class="col-xl-8">
+                <h4 class="fw-bold">Recommended For You</h4>
+            </div>
+            <div class="col-xl-4">
+                <nav aria-label="Page navigation example">
+                    @if (Model.PagingInfo.TotalPages > 1)
+                    {
+                        <ul class="pagination float-end">
+                            @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+                            {
+                                <li class="page-item @(i == Model.PagingInfo.CurrentPage ? "active" : "")">
+                                    <a class="page-link" href="?page=@i">@i</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </nav>
+            </div>
+
+            <div class="row mt-5">
+                @foreach (var item in Model.NewsFull)
+                {
+                    <div class="col-xl-6">
+                        <div class="card border-0 hover-list-popular">
+                            <div class="position-relative">
+                                <img src="~/images/1.jpg" class="img-fluid" alt="...">
+                                <div class="position-absolute bottom-0">
+                                    <div class="btn rounded-0 border-0 bg-white color-9A9AB0">
+                                        @foreach (var newsSubject in item.SubjectsNews)
+                                        {
+                                            <span>@newsSubject.Subject.Name</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title fs-24 fw-medium">
+                                    @item.Title
+                                </h5>
+                                <div class="row card-text fs-12 color-9A9AB0">
+                                    <div class="col-xl-4">@item.CreateByNavigation.FullName</div>
+                                    <div class="col-xl-4">@item.CreateDate.Date.ToShortDateString()</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<table class="table">
+    <thead>
+
+    <tbody>
+            @foreach (var item in Model.Document)
+            {
+            <tr>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.DatePost)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Image)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.FilePath)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Rate)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.TagsId)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.CategoriesId)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.PostByNavigation.Address)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+            }
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+        news
+    <tbody>
+            @foreach (var item in Model.News)
+            {
+            <tr>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+            }
+    </tbody>
+</table>

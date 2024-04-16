@@ -1,4 +1,5 @@
 ﻿using DAX_Block2_2024.Entities;
+using DAX_Block2_2024.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,8 @@ namespace DAX_Block2_2024.Controllers
         //asp-controller="NewDetail" asp-action="Details" asp-route-id="@item.Id"
         [HttpGet]
         [Route("New/Detail/{id}")]
+        [Authentication]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -77,6 +80,8 @@ namespace DAX_Block2_2024.Controllers
         }
 
         [HttpGet]
+        [Authentication]
+
         public async Task<IActionResult> GetMoreRelatedNews(int newsId)
         {
             var news = await _context.News
@@ -103,6 +108,8 @@ namespace DAX_Block2_2024.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authentication]
+
         public async Task<IActionResult> PostComment(string comment, string username, int newsId, DateTime commentDate)
         {
             try
@@ -110,7 +117,7 @@ namespace DAX_Block2_2024.Controllers
                 var user = _context.Users.FirstOrDefault(u => u.UserName == username);
                 if (user == null)
                 {
-                    return Json(new { success = false});
+                    return Json(new { success = false });
                 }
 
                 var newComment = new CommentNews
@@ -131,7 +138,5 @@ namespace DAX_Block2_2024.Controllers
                 return Json(new { success = false, message = ex.Message });
             }
         }
-
-
     }
 }

@@ -30,7 +30,10 @@
             <i class="fa-solid fa-share-nodes" style="color: #109be9;"></i></i> 123
         </div>
         <div class="col-xl-1">
-            <i class="fa-solid fa-download" style="color: #109be9;"></i> 123
+            <a href="@Model.DocumentDetails.FilePath" id="openPdfLink" target="_blank">
+                <i class="fa-solid fa-download" style="color: #109be9;"></i>
+                123
+            </a>
         </div>
     </div>
     <img src="@Model.DocumentDetails.Image" class="img-fluid w-100" alt="Not Img" style="padding-top: 40px;">
@@ -131,150 +134,29 @@
     </div>
 </div>
 
-@* chỗ để bình luận *@
-@* 
-<div class="row mb-5" id="postComment">
-    <div class="col-sm-10">
-        <!--Ô điền comment-->
-        <form id="commentForm">
-            @Html.AntiForgeryToken()
-            <div class="d-flex align-items-start">
-                <div class="pe-4">
-                    <img class="rounded-circle" width="50" height="50" style="background-color: gray;">
-                </div>
-                <textarea class="form-control me-4 p-3" id="commentBox"
-                          placeholder="Write your comment here" required></textarea>
-            </div>
-            <div class="d-block mb-5">
-                <button type="submit" class="btn rounded rounded-3 hover-button-F36326">Post Comment</button>
-            </div>
-        </form>
-        <!--Chỗ show những người đã comment-->
-        <div class="mb-5" id="comment">
-            @foreach (var item in Model.CommentOfNews)
-            {
-                <div class="d-flex align-items-start">
-                    <div class="pe-2">
-                        <img class="rounded-circle" width="50" height="50" style="background-color: gray;">
-                    </div>
-                    <div class="pt-3 pe-3">
-                        <p id="posterName" class="fw-semibold">@item.Users.FullName</p>
-                    </div>
-                    <p class="pt-3" id="timePost">@item.CommentDate.ToString()</p>
-                </div>
-                <div class="d-block" id="contentComment">
-                    <p class="text-start">
-                        @item.Content
-                    </p>
-                </div>
-            }
-        </div>
-    </div>
-</div>
-<div class="row mb-5" id="relatedPost">
-    <div class="col-sm-10">
-        <div class="d-flex justify-content-between">
-            <div class="title">
-                <span>
-                    Related Post
-                </span>
-            </div>
-            <div class="showAll rounded rounded-3 hover-button-F36326">
-                <div>
-                    <button type="button" class="btn btnShowAll">View All</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row my-4" id="listRelatedPost">
-            @foreach (var news in Model.RelatedNewsTake4)
-            {
-                <div class="col-sm-3 pe-2">
-                    <a href="#" class="card-link nav-link">
-                        <div class="card hover-list-popular" style="border: none!important;">
-                            <div class="position-relative">
-                                <img class="card-img-top" src="@Url.Content("~/uploads/newsImage/"+news.Image)" alt="News Image" width="300px" height="320px">
-                                <div class="position-absolute start-0" style="bottom: -16px!important;">
-                                    @foreach (var subjectNews in Model.DocumentDetails.DocumentsCategories)
-                                    {
-                                        <p id="topic">@subjectNews.Document.Name</p>
-                                    }
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-title">@news.Title</p>
-                                <div class="card-text d-flex align-items-start">
-                                    <div class="pt-3 pe-3">
-                                        <p id="posterName">@news.CreateByNavigation.FullName</p>
-                                    </div>
-                                    <p class="pt-3" id="timePost">@news.CreateDate.ToString("MMM dd, yyyy")</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            }
-        </div>
-    </div>
-</div>
 <script>
-    $(document).ready(function () {
-        var addAntiForgeryToken = function (data) {
-            data.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
-            return data;
-        };
+    $(function () {
+        $("#openPdfLink").click(function (event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+            var filePath = $(this).attr("href"); // Lấy đường dẫn tệp PDF từ thuộc tính href của liên kết
 
-        var newsId = @Model.DocumentDetails.Id;
-        $("#postButton button").click(function (event) {
-            event.preventDefault(); // Prevent the form from traditional submitting
-            var commentContent = $("#commentBox").val();
-            var username = '@Context.Session.GetString("username")';
-            var commentDate = new Date().toISOString();
-
+            // Gọi phương thức Index trong DisplayPDFController thông qua Ajax để nhận đường dẫn tệp PDF
             $.ajax({
-                url: '@Url.Action("PostComment", "DocumentDetails")',
                 type: 'POST',
-                dataType: 'json',
-                data: addAntiForgeryToken({
-                    comment: commentContent,
-                    username: username,
-                    newsId: newsId,
-                    commentDate: commentDate
-                }),
-                success: function (data) {
-                    if (data.success) {
-                        $("#commentBox").val("");
-                        console.log("Comment posted successfully!");
+                data: { fileName: filePath },
+                url: "/DisplayPDF/Index",
+                success: function (response) {
+                    if (response == 'Report was not generated.') {
+                        alert(response);
                     } else {
-                        console.log("Error: " + data.message);
+                        // Mở tệp PDF trong một tab trình duyệt mới
+                        window.open("/DisplayPDF/ShowPDF?path=" + response, "_blank");
                     }
                 },
-                error: function (xhr, status, error) {
-                    alert("An error occurred: " + error);
+                error: function () {
+                    alert('Error occurred while opening PDF.');
                 }
             });
         });
     });
 </script>
-<script>
-    $(document).ready(function () {
-        $('.btnShowAll').click(function () {
-            var url = '@Url.Action("GetMoreRelatedNews", "NewDetail", new { newsId = Model.NewsDetails.Id })';
-            $('#listRelatedPost').html('<div class="text-center"><p>Loading...</p></div>');
-
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function (data) {
-                    $('#listRelatedPost').html(data);
-                },
-                error: function (xhr, status, error) {
-                    console.error("An error occurred: " + error);
-                    $('#listRelatedPost').html('<p class="text-danger">Failed to load related posts. Please try again later.</p>');
-                }
-            });
-        });
-    });
-</script>
- *@
- 

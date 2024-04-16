@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DAX_Block2_2024.Entities;
+using DAX_Block2_2024.Models;
 
 namespace DAX_Block2_2024.Areas.Admin.Controllers
 {
@@ -20,6 +21,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         }
 
         // GET: Admin/Users
+        [Authentication]
+
         public async Task<IActionResult> Index()
         {
             var web_Chia_Se_Tai_LieuContext = _context.Users.Include(u => u.Role);
@@ -27,6 +30,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         }
 
         // GET: Admin/Users/Details/5
+        [Authentication]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,6 +50,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
             return View(user);
         }
         // GET: Admin/Users/Create
+        [Authentication]
+
         public IActionResult Create()
         {
             ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Name");
@@ -56,6 +63,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authentication]
+
         public async Task<IActionResult> Create([Bind("Id,UserName,PassWord,FullName,BirthDay,Gender,Address,PhoneNumber,AccountRate,AccountPoint,Email,Status,RoleId")] User user)
         {
             if (ModelState.IsValid)
@@ -69,6 +78,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         }
 
         // GET: Admin/Users/Edit/5
+        [Authentication]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,6 +101,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authentication]
+
         public async Task<IActionResult> EditUser(int id, [Bind("Id,UserName,PassWord,FullName,BirthDay,Gender,Address,PhoneNumber,AccountRate,AccountPoint,Email,Status,RoleId")] User user)
         {
             if (id != user.Id)
@@ -121,6 +134,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
             return View(user);
         }
         // GET: Admin/Users/Delete/5
+        [Authentication]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -142,6 +157,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         // POST: Admin/Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authentication]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -149,6 +166,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        [Authentication]
 
         private bool UserExists(int id)
         {

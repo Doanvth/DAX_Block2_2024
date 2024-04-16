@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DAX_Block2_2024.Entities;
+using DAX_Block2_2024.Models;
 
 namespace DAX_Block2_2024.Controllers
 {
@@ -19,6 +20,7 @@ namespace DAX_Block2_2024.Controllers
         }
 
         // GET: ListNewsUser
+        [Authentication]
 
         public async Task<IActionResult> Index()
         {
@@ -27,6 +29,8 @@ namespace DAX_Block2_2024.Controllers
         }
 
         // GET: ListNewsUser/Details/5
+        [Authentication]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,6 +50,8 @@ namespace DAX_Block2_2024.Controllers
         }
 
         // GET: ListNewsUser/Create
+        [Authentication]
+
         public IActionResult Create()
         {
             ViewData["CreateBy"] = new SelectList(_context.Users, "Id", "Address");
@@ -57,6 +63,8 @@ namespace DAX_Block2_2024.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authentication]
+
         public async Task<IActionResult> Create([Bind("Id,Title,Description,Content,Image,CreateDate,CreateBy,Status")] News news)
         {
             if (ModelState.IsValid)
@@ -70,6 +78,8 @@ namespace DAX_Block2_2024.Controllers
         }
 
         // GET: ListNewsUser/Edit/5
+        [Authentication]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -91,6 +101,8 @@ namespace DAX_Block2_2024.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authentication]
+
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Content,Image,CreateDate,CreateBy,Status")] News news)
         {
             if (id != news.Id)
@@ -123,6 +135,8 @@ namespace DAX_Block2_2024.Controllers
         }
 
         // GET: ListNewsUser/Delete/5
+        [Authentication]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -144,6 +158,8 @@ namespace DAX_Block2_2024.Controllers
         // POST: ListNewsUser/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authentication]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var news = await _context.News.FindAsync(id);
@@ -151,6 +167,7 @@ namespace DAX_Block2_2024.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        [Authentication]
 
         private bool NewsExists(int id)
         {

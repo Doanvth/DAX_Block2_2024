@@ -17,6 +17,7 @@ namespace DAX_Block2_2024.Controllers
         {
             _logger = logger;
         }
+        [Authentication]
 
         public IActionResult Index()
         {

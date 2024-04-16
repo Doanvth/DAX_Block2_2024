@@ -45,7 +45,7 @@ namespace DAX_Block2_2024.Controllers
 
         // GET: HomeUser
 
-        //[Authentication]
+        [Authentication]
         public async Task<IActionResult> Index(int page = 1)
         {
             int pageSize = 2;
@@ -105,6 +105,8 @@ namespace DAX_Block2_2024.Controllers
         }
 
         // GET: HomeUser/Details/5
+        [Authentication]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -160,6 +162,8 @@ namespace DAX_Block2_2024.Controllers
         }
         [ActionName("Logout")]
         [HttpGet]
+        [Authentication]
+
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();

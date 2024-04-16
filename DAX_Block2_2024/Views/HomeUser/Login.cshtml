@@ -6,8 +6,8 @@
 @using (Html.BeginForm("Login", "HomeUser", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    <div class="container">
-        <div class="row g-4">
+    <div class="container pt-5">
+        <div class="row g-4 mx-auto" style="max-width: 500px">
             <div class="col-12">
                 <label for="validationCustomUsername" class="form-label">Username</label>
                 <div class="input-group border-bottom">
@@ -29,11 +29,8 @@
                     @Html.TextBoxFor(x => x.PassWord, new { id = "validationCustomPassword", @class = "form-control form-control-lg border-0", name = "Password", placeholder = "Enter Password", aria_describedby = "inputGroupPrepend", required = "required", autocomplete = "off", type = "password" })
                 </div>
             </div>
-            <div class="col-sm-4 mt-4">
-                <a href="#" class="float-end" style="color: #ff9800;">Quên mật khẩu?</a>
-            </div>
             <div class="col-12">
-                <button class="btn px-4 btn-outline-dark float-start mt-4" type="submit"
+                <button class="btn px-4 btn-outline-light float-start mt-4" type="submit"
                         style="background-color: #ff9800; color: white;">
                     Đăng nhập
                 </button>

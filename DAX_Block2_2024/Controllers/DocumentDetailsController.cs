@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DAX_Block2_2024.Entities;
+using DAX_Block2_2024.Models;
 
 namespace DAX_Block2_2024.Controllers
 {
@@ -26,6 +27,8 @@ namespace DAX_Block2_2024.Controllers
         }
 
         // GET: DocumentDetails
+        [Authentication]
+
         public async Task<IActionResult> Index(int? id)
         {
             var web_Chia_Se_Tai_LieuContext = await _context.Documents.Include(d => d.PostByNavigation).Take(1).ToListAsync();
@@ -55,6 +58,8 @@ namespace DAX_Block2_2024.Controllers
         }
 
         // GET: DocumentDetails/Details/5
+        [Authentication]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -75,6 +80,8 @@ namespace DAX_Block2_2024.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authentication]
+
         public async Task<IActionResult> PostComment(string comment, string username, int newsId, DateTime commentDate)
         {
             try

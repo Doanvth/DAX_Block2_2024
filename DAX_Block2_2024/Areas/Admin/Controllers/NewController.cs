@@ -9,6 +9,7 @@ using DAX_Block2_2024.Entities;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Net;
+using DAX_Block2_2024.Models;
 
 namespace DAX_Block2_2024.Areas.Admin.Controllers
 {
@@ -23,6 +24,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         }
 
         // GET: Admin/New
+        [Authentication]
+
         public async Task<IActionResult> Index()
         {
             var web_Chia_Se_Tai_LieuContext = _context.News.Include(n => n.CreateByNavigation);
@@ -30,6 +33,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         }
 
         // GET: Admin/New/Details/5
+        [Authentication]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -49,6 +54,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         }
 
         // GET: Admin/New/Create
+        [Authentication]
+
         public IActionResult Create()
         {
             ViewData["CreateBy"] = new SelectList(_context.Users, "Id", "UserName");
@@ -61,6 +68,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authentication]
+
         public async Task<IActionResult> Create([Bind("Id,Title,Description,Content,Image,Status,CreateDate,CreateBy")] News news, IFormFile ImageFile, int? subjectId)
         {
             if (ModelState.IsValid)
@@ -99,6 +108,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         }
 
         // GET: Admin/New/Edit/5
+        [Authentication]
+
         public IActionResult Edit()
         {
             ViewData["CreateBy"] = new SelectList(_context.Users, "Id", "UserName");
@@ -107,6 +118,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
             return View();
         }
         [HttpGet]
+        [Authentication]
+
         public IActionResult GetNewsDetails(int id)
         {
             var news = _context.News
@@ -141,6 +154,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authentication]
+
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Content,Image,Status,CreateDate,CreateBy")] News news, IFormFile ImageFile, int? subjectId)
         {
             if (id != news.Id)
@@ -200,6 +215,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
 
 
         //GET: Admin/New/Delete/5
+        [Authentication]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -221,6 +238,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         // POST: Admin/New/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authentication]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var news = await _context.News.FindAsync(id);
@@ -228,6 +247,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        [Authentication]
+
 
         private bool NewsExists(int id)
         {

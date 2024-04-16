@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using DAX_Block2_2024.Models;
 
 namespace DAX_Block2_2024.Areas.Admin.Controllers
 {
@@ -34,12 +35,16 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         }
 
         // GET: Admin/Documents
+        [Authentication]
+
         public async Task<IActionResult> Index()
         {
             var documents = await _context.Documents.Include(d => d.PostByNavigation).ToListAsync();
             return View(documents);
         }
         // GET: Admin/Documents/Details/5
+        [Authentication]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -60,6 +65,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
 
         // GET: Admin/Documents/Create
         //[HttpGet("CreateDoc")]
+        [Authentication]
+
         public IActionResult Create()
         {
             ViewData["PostBy"] = new SelectList(_context.Users, "Id", "FullName");
@@ -73,6 +80,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authentication]
+
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Content,DatePost,PostBy,Image,FilePath,Rate,Files,Status,Price,TagsId,CategoriesId")] Document document, IFormFile postedFile, IFormFile postImg)
         {
             if (ModelState.IsValid)
@@ -138,6 +147,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
             return View(document);
         }
         // GET: Admin/Documents/Edit/5
+        [Authentication]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -161,6 +172,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authentication]
+
         public async Task<IActionResult> EditDoc(int id, [Bind("Id,Name,Description,Content,DatePost,PostBy,Image,FilePath,Rate,Files,Status,Price,TagsId,CategoriesId")] Document document, IFormFile postedFile, IFormFile postImg)
         {
             if (id != document.Id)
@@ -240,6 +253,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         }
 
         // GET: Admin/Documents/Delete/5
+        [Authentication]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -261,6 +276,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
         // POST: Admin/Documents/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authentication]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var document = await _context.Documents.FindAsync(id);
@@ -269,10 +286,14 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authentication]
+
         private bool DocumentExists(int id)
         {
             return _context.Documents.Any(e => e.Id == id);
         }
+
+        [Authentication]
 
         public void OnGet()
         {
@@ -283,6 +304,8 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
                 this.Documents.Add(new Document { FilePath = Path.GetFileName(file) });
             }
         }
+
+        [Authentication]
 
         public FileResult OnGetDownloadFile(string filePath)
         {

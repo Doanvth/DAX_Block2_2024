@@ -72,5 +72,36 @@ namespace DAX_Block2_2024.Controllers
 
             return View(document);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PostComment(string comment, string username, int newsId, DateTime commentDate)
+        {
+            try
+            {
+                var user = _context.Users.FirstOrDefault(u => u.UserName == username);
+                if (user == null)
+                {
+                    return Json(new { success = false });
+                }
+
+                var newComment = new CommentNews
+                {
+                    UsersId = user.Id,
+                    NewsId = newsId,
+                    Content = comment,
+                    CommentDate = commentDate
+                };
+
+                _context.CommentNews.Add(newComment);
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
     }
 }

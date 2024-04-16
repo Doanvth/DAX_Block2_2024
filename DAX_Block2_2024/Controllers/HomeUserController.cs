@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DAX_Block2_2024.Entities;
 using Microsoft.AspNetCore.Http;
+using DAX_Block2_2024.Models;
 
 namespace DAX_Block2_2024.Controllers
 {
@@ -43,6 +44,8 @@ namespace DAX_Block2_2024.Controllers
         }
 
         // GET: HomeUser
+
+        //[Authentication]
         public async Task<IActionResult> Index(int page = 1)
         {
             int pageSize = 2;

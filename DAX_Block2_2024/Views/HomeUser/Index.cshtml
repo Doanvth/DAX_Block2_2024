@@ -113,10 +113,13 @@
             @foreach (var item in Model.News)
             {
                 <div class="col-xl-7">
-                    <a href="" class="custom-link pt-2 pb-2">
+                    <a class="custom-link"
+                       asp-controller="NewDetail"
+                       asp-action="Details"
+                       asp-route-id="@item.Id">
                         <div class="card border-0 hover-list-popular">
                             <div class="position-relative">
-                                <img src="~/images/1.jpg" class="img-fluid" alt="Not Image">
+                                <img src="@Url.Content("~/uploads/newsImage/" + item.Image)" class="img-fluid" alt="Not Image">
                                 <div class="position-absolute bottom-0">
                                     <div class="btn rounded-0 border-0 bg-white color-9A9AB0">
                                         @item.CreateByNavigation.FullName
@@ -140,10 +143,13 @@
                 @foreach (var item in Model.News3)
                 {
                     <div class="row hover-list-popular pt-2 pb-2">
-                        <a href="" class="custom-link pt-2 pb-2">
+                        <a class="custom-link"
+                           asp-controller="NewDetail"
+                           asp-action="Details"
+                           asp-route-id="@item.Id">
                             <div class="row">
                                 <div class="col-xl-4 col-sm-4">
-                                    <img class="img-fluid h-100" src="~/images/1.jpg" alt="">
+                                    <img class="img-fluid h-100" src="@Url.Content("~/uploads/newsImage/" + item.Image)" alt="">
                                 </div>
                                 <div class="col-xl-8 col-sm-8 mt-2 mb-2">
                                     <p class="fs-24 custom-link fw-medium text-black lh-sm">
@@ -186,25 +192,30 @@
                 @foreach (var item in Model.NewsFull)
                 {
                     <div class="col-xl-6">
-                        <div class="card border-0 hover-list-popular">
-                            <div class="position-relative">
-                                <img src="~/images/1.jpg" class="img-fluid" alt="...">
-                                <div class="position-absolute bottom-0">
-                                    <div class="btn rounded-0 border-0 bg-white color-9A9AB0">
-                                        @item.CreateByNavigation.FullName
+                        <a class="custom-link"
+                           asp-controller="NewDetail"
+                           asp-action="Details"
+                           asp-route-id="@item.Id">
+                            <div class="card border-0 hover-list-popular">
+                                <div class="position-relative">
+                                    <img src="@Url.Content("~/uploads/newsImage/" + item.Image)" class="img-fluid" alt="...">
+                                    <div class="position-absolute bottom-0">
+                                        <div class="btn rounded-0 border-0 bg-white color-9A9AB0">
+                                            @item.CreateByNavigation.FullName
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title fs-24 fw-medium">
+                                        @item.Title
+                                    </h5>
+                                    <div class="row card-text fs-12 color-9A9AB0">
+                                        <div class="col-xl-4">@item.CreateByNavigation.FullName</div>
+                                        <div class="col-xl-4">@item.CreateDate.Date.ToShortDateString()</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title fs-24 fw-medium">
-                                    @item.Title
-                                </h5>
-                                <div class="row card-text fs-12 color-9A9AB0">
-                                    <div class="col-xl-4">@item.CreateByNavigation.FullName</div>
-                                    <div class="col-xl-4">@item.CreateDate.Date.ToShortDateString()</div>
-                                </div>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 }
             </div>

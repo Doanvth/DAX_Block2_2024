@@ -1,42 +1,43 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model DAX_Block2_2024.Entities.User
-@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+@using (Html.BeginForm("Login", "HomeUser", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    <div class="row g-4">
-        <div class="col-12">
-            <label for="validationCustomUsername" class="form-label">Username</label>
-            <div class="input-group border-bottom">
-                <span class="input-group-text border-0 bg-transparent"
-                      id="inputGroupPrepend"><i class="fa-solid fa-user"></i></span>
-                @Html.TextBoxFor(x => x.UserName, new { id = "validationCustomUsername", @class = "form-control form-control-lg border-0", aria_describedby = "inputGroupPrepend", required = "required", autocomplete = "off", placeholder = "Enter Username" })
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-12">
+                <label for="validationCustomUsername" class="form-label">Username</label>
+                <div class="input-group border-bottom">
+                    <span class="input-group-text border-0 bg-transparent"
+                          id="inputGroupPrepend"><i class="fa-solid fa-user"></i></span>
+                    @Html.TextBoxFor(x => x.UserName, new { id = "validationCustomUsername", @class = "form-control form-control-lg border-0", aria_describedby = "inputGroupPrepend", required = "required", autocomplete = "off", placeholder = "Enter Username" })
+                </div>
             </div>
-        </div>
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center">
-                <label for="validationCustomPassword" class="form-label"> Mật khẩu: </label>
-                <button class="btn visibility-toggle border-0" type="button">
-                    <i class="fa-regular fa-eye" id="visibility-icon"></i>
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <label for="validationCustomPassword" class="form-label"> Mật khẩu: </label>
+                    <button class="btn visibility-toggle border-0" type="button">
+                        <i class="fa-regular fa-eye" id="visibility-icon"></i>
+                    </button>
+                </div>
+                <div class="input-group border-bottom">
+                    <span class="input-group-text border-0 bg-transparent"
+                          id="inputGroupPrepend"><i class="fa-solid fa-lock"></i></span>
+                    @Html.TextBoxFor(x => x.PassWord, new { id = "validationCustomPassword", @class = "form-control form-control-lg border-0", name = "Password", placeholder = "Enter Password", aria_describedby = "inputGroupPrepend", required = "required", autocomplete = "off", type = "password" })
+                </div>
+            </div>
+            <div class="col-sm-4 mt-4">
+                <a href="#" class="float-end" style="color: #ff9800;">Quên mật khẩu?</a>
+            </div>
+            <div class="col-12">
+                <button class="btn px-4 btn-outline-dark float-start mt-4" type="submit"
+                        style="background-color: #ff9800; color: white;">
+                    Đăng nhập
                 </button>
             </div>
-            <div class="input-group border-bottom">
-                <span class="input-group-text border-0 bg-transparent"
-                      id="inputGroupPrepend"><i class="fa-solid fa-lock"></i></span>
-                @Html.TextBoxFor(x => x.PassWord, new { id = "validationCustomPassword", @class = "form-control form-control-lg border-0", name = "Password", placeholder = "Enter Password", aria_describedby = "inputGroupPrepend", required = "required", autocomplete = "off", type = "password" })
-            </div>
-        </div>
-        <div class="col-sm-4 mt-4">
-            <a href="#" class="float-end" style="color: #ff9800;">Quên mật khẩu?</a>
-        </div>
-        <div class="col-12">
-            <button class="btn px-4 btn-outline-dark float-start mt-4" type="submit"
-                    style="background-color: #ff9800; color: white;">
-                Đăng nhập
-            </button>
         </div>
     </div>
 }

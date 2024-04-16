@@ -1,7 +1,9 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string username = Context.Session.GetString("username");
+    bool isLoggedIn = !string.IsNullOrEmpty(username);
 }
 @model DAX_Block2_2024.Controllers.NewDetailController.ViewModelNewDetails
 @using Microsoft.AspNetCore.Http
@@ -43,6 +45,7 @@
                 <textarea class="form-control me-4 p-3" id="commentBox"
                           placeholder="Write your comment here" required></textarea>
             </div>
+            
             <div class="d-block mb-5">
                 <button type="submit" class="btn rounded rounded-3 hover-button-F36326">Post Comment</button>
             </div>
@@ -116,14 +119,14 @@
     </div>
 </div>
 <script>
-    $(document).ready(function() {
-        var addAntiForgeryToken = function(data) {
+    $(document).ready(function () {
+        var addAntiForgeryToken = function (data) {
             data.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
             return data;
         };
 
         var newsId = @Model.NewsDetails.Id;
-        $("#postButton button").click(function(event) {
+        $("#postButton button").click(function (event) {
             event.preventDefault(); // Prevent the form from traditional submitting
             var commentContent = $("#commentBox").val();
             var username = '@Context.Session.GetString("username")';
@@ -139,7 +142,7 @@
                     newsId: newsId,
                     commentDate: commentDate
                 }),
-                success: function(data) {
+                success: function (data) {
                     if (data.success) {
                         $("#commentBox").val("");
                         console.log("Comment posted successfully!");
@@ -147,7 +150,7 @@
                         console.log("Error: " + data.message);
                     }
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     alert("An error occurred: " + error);
                 }
             });
@@ -155,30 +158,32 @@
     });
 </script>
 <script>
-$(document).ready(function() {
-    $('.btnShowAll').click(function() {
-        var url = '@Url.Action("GetMoreRelatedNews", "NewDetail", new { newsId = Model.NewsDetails.Id})';
-        $('#listRelatedPost').html('<div class="text-center"><p>Loading...</p></div>');
+    $(document).ready(function () {
+        $('.btnShowAll').click(function () {
+            var url = '@Url.Action("GetMoreRelatedNews", "NewDetail", new { newsId = Model.NewsDetails.Id })';
+            $('#listRelatedPost').html('<div class="text-center"><p>Loading...</p></div>');
 
-        $.ajax({
-            url: url,
-            type: 'GET',
-            success: function(data) {
-                $('#listRelatedPost').html(data);
-            },
-            error: function(xhr, status, error) {
-                console.error("An error occurred: " + error);
-                $('#listRelatedPost').html('<p class="text-danger">Failed to load related posts. Please try again later.</p>');
-            }
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    $('#listRelatedPost').html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.error("An error occurred: " + error);
+                    $('#listRelatedPost').html('<p class="text-danger">Failed to load related posts. Please try again later.</p>');
+                }
+            });
         });
     });
-});
 </script>
 
 
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
 

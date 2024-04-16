@@ -12,10 +12,15 @@ namespace DAX_Block2_2024.Controllers
     public class NewDetailController : Controller
     {
         private Web_Chia_Se_Tai_LieuContext _context;
+        public NewDetailController(Web_Chia_Se_Tai_LieuContext context)
+        {
+            _context = context;
+        }
+
+
         public class ViewModelNewDetails
         {
             public IList<News> RelatedNewsTake4 { get; set; }
-            public IList<News> RelatedNewsTakeAll { get; set; }
             public IList<CommentNews> CommentOfNews { get; set; }
             public News NewsDetails { get; set; }
         }
@@ -26,47 +31,76 @@ namespace DAX_Block2_2024.Controllers
         [Route("New/Detail/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
-
             if (id == null)
             {
                 return NotFound();
             }
+
+            // Fetch the main news item including its subjects
             var news = await _context.News
-                .Include(d => d.CreateByNavigation)
+                .Include(n => n.CreateByNavigation)
+                .Include(n => n.SubjectsNews)
+                .ThenInclude(s => s.Subject)
                 .FirstOrDefaultAsync(m => m.Id == id);
-
-            var relatedNewsTake4 = await _context.News
-                .Include(d => d.CreateByNavigation)
-                .Where(x => x.SubjectsNews == news.SubjectsNews)
-                .OrderBy(x => x.CreateDate)
-                .Take(4).ToListAsync();
-
-            var relatedNewsTakeAll = await _context.News
-                .Include(d => d.CreateByNavigation)
-                .Where(x => x.SubjectsNews == news.SubjectsNews)
-                .OrderBy(x => x.CreateDate)
-                .Skip(4)
-                .ToListAsync();
-
-            var commentsOfNews = await _context.CommentNews
-                .Include(d => d.Users)
-                .Where(x => x.NewsId == id)
-                .OrderBy(x => x.CommentDate)
-                .ToListAsync();
 
             if (news == null)
             {
-                return NotFound();
+                return NotFound("News item not found.");
             }
-            ViewModelNewDetails viewmodel = new ViewModelNewDetails()
+
+            // Extract subject IDs associated with this news item
+            var subjectIds = news.SubjectsNews.Select(sn => sn.SubjectId).ToList();
+
+            // Fetch up to 4 related news items that share any of the same subject IDs
+            var relatedNewsTake4 = await _context.News
+                .Include(n => n.CreateByNavigation)
+                .Where(n => n.SubjectsNews.Any(sn => subjectIds.Contains(sn.SubjectId) && sn.NewsId != news.Id))
+                .OrderBy(n => n.CreateDate)
+                .Take(4)
+                .ToListAsync();
+
+            // Fetch comments associated with the news item
+            var commentsOfNews = await _context.CommentNews
+                .Include(c => c.Users)
+                .Where(c => c.NewsId == id)
+                .OrderBy(c => c.CommentDate)
+                .ToListAsync();
+
+            ViewModelNewDetails viewModel = new ViewModelNewDetails
             {
                 RelatedNewsTake4 = relatedNewsTake4,
-                RelatedNewsTakeAll = relatedNewsTakeAll,
                 CommentOfNews = commentsOfNews,
                 NewsDetails = news
             };
-            return View(news);
+
+            return View(viewModel);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMoreRelatedNews(int newsId)
+        {
+            var news = await _context.News
+                .Include(n => n.CreateByNavigation)
+                .Include(n => n.SubjectsNews)
+                .ThenInclude(sn => sn.Subject)
+                .FirstOrDefaultAsync(m => m.Id == newsId);
+
+            if (news == null)
+            {
+                return NotFound("News not found");
+            }
+
+            var subjectIds = news.SubjectsNews.Select(sn => sn.SubjectId).ToList();
+
+            var additionalNews = await _context.News
+                .Include(n => n.CreateByNavigation)
+                .Include(n => n.SubjectsNews)
+                .Where(n => n.Id != newsId && n.SubjectsNews.Any(sn => subjectIds.Contains(sn.SubjectId)))
+                .ToListAsync();
+
+            return PartialView("_RelatedNews", additionalNews);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> PostComment(string comment, string username, int newsId, DateTime commentDate)

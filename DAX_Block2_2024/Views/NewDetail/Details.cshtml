@@ -35,9 +35,8 @@
 @* chỗ để bình luận *@
 <div class="row mb-5" id="postComment">
     <div class="col-sm-10">
-        <!--Ô điền comment-->
+        <!-- Ô điền comment -->
         <form id="commentForm">
-            @Html.AntiForgeryToken()
             <div class="d-flex align-items-start">
                 <div class="pe-4">
                     <img class="rounded-circle" width="50" height="50" style="background-color: gray;">
@@ -45,12 +44,12 @@
                 <textarea class="form-control me-4 p-3" id="commentBox"
                           placeholder="Write your comment here" required></textarea>
             </div>
-            
+
             <div class="d-block mb-5">
                 <button type="submit" class="btn rounded rounded-3 hover-button-F36326">Post Comment</button>
             </div>
         </form>
-        <!--Chỗ show những người đã comment-->
+        <!-- Chỗ show những người đã comment -->
         <div class="mb-5" id="comment">
             @foreach (var item in Model.CommentOfNews)
             {
@@ -61,7 +60,9 @@
                     <div class="pt-3 pe-3">
                         <p id="posterName" class="fw-semibold">@item.Users.FullName</p>
                     </div>
-                    <p class="pt-3" id="timePost">@item.CommentDate.ToString()</p>
+                    <p class="pt-3" id="timePost">
+                        @(((DateTime)item.CommentDate).ToString("MM/dd/yyyy"))
+                    </p>
                 </div>
                 <div class="d-block" id="contentComment">
                     <p class="text-start">
@@ -119,44 +120,81 @@
     </div>
 </div>
 <script>
-    $(document).ready(function () {
-        var addAntiForgeryToken = function (data) {
-            data.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
-            return data;
-        };
+$(document).ready(function() {
+    $('#commentForm').submit(function(e) {
+        e.preventDefault();
 
+        var username = '@username';
         var newsId = @Model.NewsDetails.Id;
-        $("#postButton button").click(function (event) {
-            event.preventDefault(); // Prevent the form from traditional submitting
-            var commentContent = $("#commentBox").val();
-            var username = '@Context.Session.GetString("username")';
-            var commentDate = new Date().toISOString();
+        var comment = $('#commentBox').val();
 
+        var currentDate = new Date();
+        var formattedDate = (currentDate.getMonth() + 1).toString().padStart(2, '0') + '/'
+                          + currentDate.getDate().toString().padStart(2, '0') + '/'
+                          + currentDate.getFullYear();
+
+        $.ajax({
+            url: '@Url.Action("PostComment", "NewDetail")',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                comment: comment,
+                username: username,
+                newsId: newsId,
+                commentDate: formattedDate
+            }),
+            success: function(response) {
+                if (response.success) {
+                    // Fetch comments for the user
+                    fetchUserComments(newsId);
+                    $('#commentBox').val(''); // Clear the comment box
+                    alert('Comment posted successfully!');
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('Error: ' + xhr.responseText);
+            }
+        });
+
+        function fetchUserComments(newsId) {
             $.ajax({
-                url: '@Url.Action("PostComment", "NewDetail")',
-                type: 'POST',
-                dataType: 'json',
-                data: addAntiForgeryToken({
-                    comment: commentContent,
-                    username: username,
-                    newsId: newsId,
-                    commentDate: commentDate
-                }),
-                success: function (data) {
-                    if (data.success) {
-                        $("#commentBox").val("");
-                        console.log("Comment posted successfully!");
-                    } else {
-                        console.log("Error: " + data.message);
-                    }
+                url: '@Url.Action("GetCommentsByUser", "NewDetail")',
+                type: 'GET',
+                data: { username: username },
+                success: function(comments) {
+                    $('#comment').empty(); // Clear existing comments
+                    comments.forEach(function(comment) {
+                        $('#comment').prepend(
+                            `<div class="d-flex align-items-start">
+                                <div class="pe-2">
+                                    <img class="rounded-circle" width="50" height="50" style="background-color: gray;">
+                                </div>
+                                <div class="pt-3 pe-3">
+                                    <p id="posterName" class="fw-semibold">${comment.UserFullName}</p>
+                                </div>
+                                <p class="pt-3" id="timePost">${new Date(comment.CommentDate).toLocaleDateString("en-US")}</p>
+                            </div>
+                            <div class="d-block" id="contentComment">
+                                <p class="text-start">${comment.Content}</p>
+                            </div>`
+                        );
+                    });
                 },
-                error: function (xhr, status, error) {
-                    alert("An error occurred: " + error);
+                error: function(xhr, status, error) {
+                    console.error("An error occurred while fetching comments: " + error);
                 }
             });
-        });
+        }
     });
+});
 </script>
+
+
+
+
+
 <script>
     $(document).ready(function () {
         $('.btnShowAll').click(function () {
@@ -177,9 +215,6 @@
         });
     });
 </script>
-
-
-
 
 @section Scripts {
     @{

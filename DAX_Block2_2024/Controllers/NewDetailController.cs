@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,9 +14,11 @@ namespace DAX_Block2_2024.Controllers
     public class NewDetailController : Controller
     {
         private Web_Chia_Se_Tai_LieuContext _context;
-        public NewDetailController(Web_Chia_Se_Tai_LieuContext context)
+        private readonly ILogger<NewDetailController> _logger;
+        public NewDetailController(ILogger<NewDetailController> logger, Web_Chia_Se_Tai_LieuContext context)
         {
             _context = context;
+            _logger = logger;
         }
 
 
@@ -101,24 +105,37 @@ namespace DAX_Block2_2024.Controllers
             return PartialView("_RelatedNews", additionalNews);
         }
 
+
+        public class CommentDTO
+        {
+            public string Comment { get; set; }
+            public string Username { get; set; }
+            public int NewsId { get; set; }
+            public string CommentDate { get; set; }
+        }
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PostComment(string comment, string username, int newsId, DateTime commentDate)
+        public async Task<IActionResult> PostComment([FromBody] CommentDTO commentData)
         {
             try
             {
-                var user = _context.Users.FirstOrDefault(u => u.UserName == username);
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == commentData.Username);
                 if (user == null)
                 {
-                    return Json(new { success = false});
+                    return Json(new { success = false, message = "User not found." });
+                }
+
+                if (!DateTime.TryParseExact(commentData.CommentDate, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
+                {
+                    return Json(new { success = false, message = "Invalid date format." });
                 }
 
                 var newComment = new CommentNews
                 {
                     UsersId = user.Id,
-                    NewsId = newsId,
-                    Content = comment,
-                    CommentDate = commentDate
+                    NewsId = commentData.NewsId,
+                    Content = commentData.Comment,
+                    CommentDate = parsedDate
                 };
 
                 _context.CommentNews.Add(newComment);
@@ -128,8 +145,23 @@ namespace DAX_Block2_2024.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message });
+                _logger.LogError(ex, "An error occurred while posting the comment.");
+                return Json(new { success = false, message = "An error occurred while posting the comment." });
             }
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetCommentsByUser(int newsId)
+        {
+            var comments = await _context.CommentNews
+                                .Where(c => c.NewsId == newsId)
+                                .Select(c => new {
+                                    c.Content,
+                                    c.CommentDate,
+                                    UserFullName = c.Users.FullName
+                                }).OrderBy(c => c.CommentDate)
+                                .ToListAsync();
+
+            return Json(comments);
         }
 
 

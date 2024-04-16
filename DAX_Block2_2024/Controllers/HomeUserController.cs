@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DAX_Block2_2024.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace DAX_Block2_2024.Controllers
 {
@@ -118,5 +119,48 @@ namespace DAX_Block2_2024.Controllers
 
             return View(document);
         }
+        [HttpGet]
+        public IActionResult Login()
+        {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "HomeUser");
+            }
+        }
+        [HttpPost]
+        public IActionResult Login(User user)
+        {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                var u = _context.Users.Where(x => x.UserName.Equals(user.UserName) && x.PassWord.Equals(user.PassWord)).FirstOrDefault();
+                if (u != null)
+                {
+                    HttpContext.Session.SetString("username", u.UserName.ToString());
+                    HttpContext.Session.SetString("password", u.PassWord.ToString());
+                    HttpContext.Session.SetString("fullname", u.FullName.ToString());
+                    if (u.RoleId == 1)
+                    {
+                        return RedirectToAction("Index", "HomeAdmin", new { area = "Admin" });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "HomeUser");
+                    }
+                }
+            }
+            return View();
+        }
+        [ActionName("Logout")]
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "HomeUser");
+        }
+
     }
 }

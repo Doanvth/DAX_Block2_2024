@@ -2,91 +2,63 @@
 
 @{
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-    ViewData["Title"] = "Index";
 }
+<div class="controller">
 
-
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>DataTables</h1>
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>DataTables</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">DataTables</li>
+                    </ol>
+                </div>
             </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">DataTables</li>
-                </ol>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<!-- Main content -->
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Users</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        ID
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.UserName)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.PassWord)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.FullName)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.BirthDay)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Gender)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Address)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.PhoneNumber)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.AccountRate)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.AccountPoint)
-                                    </th>
-@*                                     <th>
-                                        @Html.DisplayNameFor(model => model.Email)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Status)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Role)
-                                    </th> *@
-                                </tr>
-                            </thead>
-                            <tbody>
+        </div><!-- /.container-fluid -->
+    </section>
 
-                                @foreach (var item in Model)
-                                {
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Users</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Username</th>
+                                        <th>Password</th>
+                                        <th>FulllName</th>
+                                        <th>BirthDay</th>
+                                        <th>Gender</th>
+                                        <th>Address</th>
+                                        <th>PhoneNumber</th>
+                                        <th>AccountRate</th>
+                                        <th>AccountPoint</th>
+                                        <th>Email</th>
+                                        <th>Status | Another</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model) {
                                     <tr>
                                         <td>
-                                            <span class="toggle-details">+</span> @Html.DisplayFor(modelItem => item.Id)
-                                        </td>
+                                            @Html.DisplayFor(modelItem => item.Id)
+                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.UserName)
                                         </td>
@@ -114,77 +86,27 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.AccountPoint)
                                         </td>
-@*                                         <td>
+                                        <td>
                                             @Html.DisplayFor(modelItem => item.Email)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Status)
+                                            | <a href="" class="text-danger">Delete</a>
                                         </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Role.Name)
-                                        </td> *@
-                                        <td>
-                                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="extra-info hidden">
-                                        <td colspan="14">
-                                            <div>
-                                                <strong>Status: </strong>@Html.DisplayFor(modelItem => item.Status)<br>
-                                                <strong>Email: </strong>@Html.DisplayFor(modelItem => item.Email)<br>
-                                                <strong>Role: </strong>@Html.DisplayFor(modelItem => item.Role.Name)<br>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                                     </tr>
+                                     }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card-body -->
+                    <!-- /.card -->
                 </div>
-                <!-- /.card -->
+                <!-- /.col -->
             </div>
-            <!-- /.col -->
+            <!-- /.row -->
         </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-</section>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var toggleButtons = document.querySelectorAll('.toggle-details');
-
-        toggleButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                var parentRow = this.closest('tr');
-                var extraInfoRow = parentRow.nextElementSibling;
-
-                var isHidden = extraInfoRow.classList.contains('hidden');
-
-                if (isHidden) {
-                    extraInfoRow.classList.remove('hidden');
-                    this.textContent = '-';
-                } else {
-                    extraInfoRow.classList.add('hidden');
-                    this.textContent = '+';
-                }
-            });
-        });
-    });
-</script>
-<style>
-    .toggle-details {
-        cursor: pointer;
-    }
-
-    .toggle-details:hover {
-       color: blue;
-    }
-
-    .hidden {
-        display: none;
-    }
-</style>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>

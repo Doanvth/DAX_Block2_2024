@@ -1,0 +1,63 @@
+﻿@model DAX_Block2_2024.Entities.Subject
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Edit Subject</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Validation</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Please fill full fields</h3>
+                    </div>
+
+                    <form asp-action="Edit">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6 form-group">
+                                    <label asp-for="Id" class="control-label"></label>
+                                    <input asp-for="Id" disabled class="form-control" />
+                                    <span asp-validation-for="Id" class="text-danger"></span>
+                                </div>
+                                <div class="col-lg-6 form-group">
+                                    <label asp-for="Name" class="control-label"></label>
+                                    <input asp-for="Name" class="form-control" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+            </div>
+        </div>
+
+    </div>
+</section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

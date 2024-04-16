@@ -197,7 +197,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a class="nav-link">
                             <i class="fas fa-newspaper nav-icon"></i>
                             <p>
                                 News
@@ -206,13 +206,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/news/view.html" class="nav-link">
+                                <a asp-controller="New" asp-action="Index" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View News</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/news/add.html" class="nav-link">
+                                <a asp-controller="New" asp-action="Create" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add News</p>
                                 </a>
@@ -253,21 +253,15 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/subjects/view.html" class="nav-link">
+                                <a asp-controller="Subjects" asp-action="Index" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>View Subjects</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/subjects/add.html" class="nav-link">
+                                <a asp-controller="Subjects" asp-action="Index" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Subjects</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/subjects/edit.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Update Subjects</p>
                                 </a>
                             </li>
                         </ul>

@@ -132,6 +132,7 @@ namespace DAX_Block2_2024.Controllers
             }
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Login(User user)
         {
             if (HttpContext.Session.GetString("username") == null)

@@ -6,6 +6,7 @@
 @model DAX_Block2_2024.Entities.User
 @using (Html.BeginForm("Login", "Home", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     <div class="row g-4">
         <div class="col-12">
             <label for="validationCustomUsername" class="form-label">Username</label>

@@ -9,6 +9,7 @@ namespace DAX_Block2_2024.Entities
     {
         public User()
         {
+            CommentNews = new HashSet<CommentNews>();
             Comments = new HashSet<Comment>();
             Documents = new HashSet<Document>();
             News = new HashSet<News>();
@@ -30,6 +31,7 @@ namespace DAX_Block2_2024.Entities
         public int RoleId { get; set; }
 
         public virtual Role Role { get; set; }
+        public virtual ICollection<CommentNews> CommentNews { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<News> News { get; set; }

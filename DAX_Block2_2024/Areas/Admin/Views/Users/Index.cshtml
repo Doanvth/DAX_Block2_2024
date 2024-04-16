@@ -21,9 +21,7 @@
         </div>
     </div><!-- /.container-fluid -->
 </section>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
@@ -42,41 +40,32 @@
                                         ID
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.UserName)
+                                        User Name
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.PassWord)
+                                        PassWord
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.FullName)
+                                        Full Name
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.BirthDay)
+                                        BirthDay
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.Gender)
+                                        Gender
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.Address)
+                                        Address
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                                        Phone Number
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.AccountRate)
+                                        Account Rate
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.AccountPoint)
+                                        Account Point
                                     </th>
-@*                                     <th>
-                                        @Html.DisplayNameFor(model => model.Email)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Status)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Role)
-                                    </th> *@
                                 </tr>
                             </thead>
                             <tbody>
@@ -124,9 +113,7 @@
                                             @Html.DisplayFor(modelItem => item.Role.Name)
                                         </td> *@
                                         <td>
-                                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                            <a asp-action="Edit" class="text-success" asp-route-id="@item.Id">Edit</a> |
                                         </td>
                                     </tr>
                                     <tr class="extra-info hidden">

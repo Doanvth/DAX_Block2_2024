@@ -26,7 +26,6 @@ namespace DAX_Block2_2024.Controllers
         }
 
         // GET: DocumentDetails
-        [Route("user/{id}")]
         public async Task<IActionResult> Index(int? id)
         {
             var web_Chia_Se_Tai_LieuContext = await _context.Documents.Include(d => d.PostByNavigation).Take(1).ToListAsync();
@@ -40,6 +39,7 @@ namespace DAX_Block2_2024.Controllers
             var document = await _context.Documents
                 .Include(d => d.PostByNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (document == null)
             {
                 return NotFound();

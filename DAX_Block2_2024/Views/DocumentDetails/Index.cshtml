@@ -6,13 +6,13 @@
 
 <div class="container">
     <div class="row" style="padding-top: 40px;">
-        <div class="col-xl-2">@Model.DocumentDetails.CategoriesId</div>
+        <div class="col-xl-2">@Model.DocumentDetails.PostByNavigation.FullName</div>
         <div class="col-xl-10">@Model.DocumentDetails.DatePost.Date.ToShortDateString()</div>
     </div>
     <p class="fs-62 fw-bold pt-40" style="padding-top: 40px;">@Model.DocumentDetails.Content</p>
     <div class="row mt-40" style="padding-top: 40px;">
         <div class="col-xl-1">
-            <img src="~/images/1.jpg" style="width: 48px; height: 48px;" class="rounded-circle img-fluid" alt="">
+            <img src="@Model.DocumentDetails.Image" style="width: 48px; height: 48px;" class="rounded-circle img-fluid" alt="">
         </div>
         <div class="col-xl-11">
             <p class="fs-16 fw-bold d-flex align-items-center pt-2">@Model.DocumentDetails.PostByNavigation.FullName</p>
@@ -32,7 +32,7 @@
             <i class="fa-solid fa-download" style="color: #109be9;"></i> 123
         </div>
     </div>
-    <img src="~/images/1.jpg" class="img-fluid w-100" alt="Not Img" style="padding-top: 40px;">
+    <img src="@Model.DocumentDetails.Image" class="img-fluid w-100" alt="Not Img" style="padding-top: 40px;">
     <div class="col-xl-10" style="padding-top: 40px;">
         <p class="fs-16 color-9A9AB0">@Model.DocumentDetails.Description</p>
     </div>
@@ -63,7 +63,7 @@
                 </div>
             </div>
             <br>
-            <p class="fs-16">coment</p>
+            <p class="fs-16">Comment</p>
         </div>
     </div>
 
@@ -86,10 +86,7 @@
                                 <img src="~/images/1.jpg" class="img-fluid" alt="Not Image">
                                 <div class="position-absolute bottom-0">
                                     <div class="btn rounded-0 border-0 bg-white color-9A9AB0">
-                                        @foreach (var newsSubject in item.DocumentsCategories)
-                                        {
-                                            <span>@newsSubject.Categories.Name</span>
-                                        }
+                                        @item.PostByNavigation.FullName
                                     </div>
                                 </div>
                             </div>
@@ -107,25 +104,27 @@
                 </div>
             }
             <div class="col-xl-5">
-                <div class="row hover-list-popular pt-2 pb-2">
-                    @foreach (var item in Model.Document3)
-                    {
-                        <a href="" class="custom-link pt-2 pb-2">
+                @foreach (var item in Model.Document3)
+                {
+                    <a asp-controller="DocumentDetails"
+                       asp-action="Index"
+                       asp-route-id="@item.Id" class="custom-link pt-2 pb-2">
+                        <div class="row hover-list-popular pt-2 pb-2">
                             <div class="col-xl-4 col-sm-4">
-                                <img class="img-fluid h-100" src="~/images/1.jpg" alt="">
+                                <img class="img-fluid h-100" src="@item.Image" alt="">
                             </div>
                             <div class="col-xl-8 col-sm-8 mt-2 mb-2">
-                                <a href="" class="fs-24 custom-link fw-medium text-black lh-sm">
+                                <p class="fs-24 custom-link fw-medium text-black lh-sm">
                                     @item.Content
-                                </a>
+                                </p>
                                 <div class="row color-9A9AB0">
                                     <div class="col-xl-3 col-sm-6 fs-12">@item.PostByNavigation.FullName</div>
                                     <div class="col-xl-9 col-sm-6 fs-12">@item.DatePost.Date.ToShortDateString()</div>
                                 </div>
                             </div>
-                        </a>
-                    }
-                </div>
+                        </div>
+                    </a>
+                }
             </div>
         </div>
     </div>

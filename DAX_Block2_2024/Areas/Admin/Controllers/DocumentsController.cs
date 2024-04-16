@@ -81,11 +81,15 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
                 string pathFile = Path.Combine(wwwPath, "UploadDocuments");
                 string pathImg = Path.Combine(wwwPath, "UploadDocuments");
 
-                if (!Directory.Exists(pathImg) && !Directory.Exists(pathFile))
+                if (!Directory.Exists(pathImg))
                 {
                     Directory.CreateDirectory(pathImg);
+                }
+                if (!Directory.Exists(pathFile))
+                {
                     Directory.CreateDirectory(pathFile);
                 }
+
                 if (postedFile != null &&
                     postedFile.Length > 0 &&
                     postImg != null &&
@@ -110,6 +114,12 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
                     {
                         await postedFile.CopyToAsync(stream);
                     }
+
+                    using (var imgStream = new FileStream(targetPathImg, FileMode.Create))
+                    {
+                        await postImg.CopyToAsync(imgStream);
+                    }
+
 
                     // Lưu đường dẫn tệp vào đối tượng sản phẩm
                     document.Image = "/UploadDocuments/" + imgName;
@@ -164,12 +174,14 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
                 string pathFile = Path.Combine(wwwPath, "UploadDocuments");
                 string pathImg = Path.Combine(wwwPath, "UploadDocuments");
 
-                if (!Directory.Exists(pathImg) && !Directory.Exists(pathFile))
+                if (!Directory.Exists(pathImg))
                 {
                     Directory.CreateDirectory(pathImg);
+                }
+                if (!Directory.Exists(pathFile))
+                {
                     Directory.CreateDirectory(pathFile);
                 }
-
                 try
                 {
                     if (postedFile != null &&
@@ -193,6 +205,11 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
                         using (var stream = new FileStream(targetPath, FileMode.Create))
                         {
                             await postedFile.CopyToAsync(stream);
+                        }
+
+                        using (var imgStream = new FileStream(targetPathImg, FileMode.Create))
+                        {
+                            await postImg.CopyToAsync(imgStream);
                         }
 
                         // Lưu đường dẫn tệp vào đối tượng sản phẩm

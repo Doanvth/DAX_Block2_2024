@@ -80,7 +80,6 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
                 string wwwPath = _web.WebRootPath;
                 string pathFile = Path.Combine(wwwPath, "UploadDocuments");
                 string pathImg = Path.Combine(wwwPath, "UploadDocuments");
-
                 if (!Directory.Exists(pathImg))
                 {
                     Directory.CreateDirectory(pathImg);
@@ -89,7 +88,11 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
                 {
                     Directory.CreateDirectory(pathFile);
                 }
-
+                if (!Directory.Exists(pathImg) && !Directory.Exists(pathFile))
+                {
+                    Directory.CreateDirectory(pathImg);
+                    Directory.CreateDirectory(pathFile);
+                }
                 if (postedFile != null &&
                     postedFile.Length > 0 &&
                     postImg != null &&
@@ -109,7 +112,6 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
                         ViewData["CategoriesId"] = new SelectList(_context.Categories, "Id", "Name", document.CategoriesId);
                         return View(document);
                     }
-
                     using (var stream = new FileStream(targetPath, FileMode.Create))
                     {
                         await postedFile.CopyToAsync(stream);
@@ -134,9 +136,7 @@ namespace DAX_Block2_2024.Areas.Admin.Controllers
             ViewData["TagsId"] = new SelectList(_context.Tags, "Id", "Name", document.TagsId);
             ViewData["CategoriesId"] = new SelectList(_context.Categories, "Id", "Name", document.CategoriesId);
             return View(document);
-
         }
-
         // GET: Admin/Documents/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

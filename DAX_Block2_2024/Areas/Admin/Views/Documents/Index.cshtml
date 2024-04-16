@@ -60,7 +60,7 @@
                                         <td><img src="@item.Image" style="width:50px; height:50px" /></td>
                                         <td>@item.Rate</td>
                                         <td>
-                                            <a href="@Url.Action("DownloadFile", "Documents", new { fileName = item.FilePath })">@item.FilePath</a>                                            @item.FilePath
+                                            <a href="@item.FilePath" id="openPdfLink" target="_blank">@item.FilePath</a>
                                         </td>
                                         <td>@item.Price</td>
                                         <td>
@@ -86,6 +86,47 @@
 </section>
 
 <script>
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+
+    $(function () {
+        $("#openPdfLink").click(function (event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+            var filePath = $(this).attr("href"); // Lấy đường dẫn tệp PDF từ thuộc tính href của liên kết
+
+            // Gọi phương thức Index trong DisplayPDFController thông qua Ajax để nhận đường dẫn tệp PDF
+            $.ajax({
+                type: 'POST',
+                data: { fileName: filePath },
+                url: "/DisplayPDF/Index",
+                success: function (response) {
+                    if (response == 'Report was not generated.') {
+                        alert(response);
+                    } else {
+                        // Mở tệp PDF trong một tab trình duyệt mới
+                        window.open("/DisplayPDF/ShowPDF?path=" + response, "_blank");
+                    }
+                },
+                error: function () {
+                    alert('Error occurred while opening PDF.');
+                }
+            });
+        });
+    });
+
     $(function () {
         $("#example1").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,

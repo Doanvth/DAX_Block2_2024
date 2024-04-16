@@ -26,7 +26,12 @@ namespace DAX_Block2_2024
         {
             services.AddControllersWithViews();
             services.AddDbContext<Web_Chia_Se_Tai_LieuContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DBConect")));
-
+            services.AddSession(option =>
+            {
+                option.IdleTimeout = TimeSpan.FromSeconds(5);
+                option.Cookie.HttpOnly = true;
+                option.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +47,7 @@ namespace DAX_Block2_2024
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();

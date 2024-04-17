@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="col-lg-6 form-group">
                                     <label asp-for="CreateBy" class="control-label">Post By</label>
-                                    <select asp-for="CreateBy" asp-items="@((SelectList)ViewData["CreateBy"])" class="form-control select2 select2-hidden-accessible" style="width: 100%;" required>
+                                    <select asp-for="CreateBy" asp-items="@((SelectList)ViewData["CreateBy"])" class="form-control select2 select2-accessible" style="width: 100%;" required>
                                         <!-- Options will be populated here -->
                                     </select>
                                     <span asp-validation-for="CreateBy" class="text-danger"></span>

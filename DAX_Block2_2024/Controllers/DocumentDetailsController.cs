@@ -12,12 +12,12 @@ namespace DAX_Block2_2024.Controllers
 {
     public class DocumentDetailsController : Controller
     {
-        public class ViewModelDocDetails
-        {
-            public IList<Document> Document { get; set; }
-            public IList<Document> Document3 { get; set; }
-            public Document DocumentDetails { get; set; }
-        }
+        //public class ViewModelDocDetails
+        //{
+        //    public IList<Document> Document { get; set; }
+        //    public IList<Document> Document3 { get; set; }
+        //    public Document DocumentDetails { get; set; }
+        //}
 
         private readonly Web_Chia_Se_Tai_LieuContext _context;
 
@@ -31,8 +31,8 @@ namespace DAX_Block2_2024.Controllers
 
         public async Task<IActionResult> Index(int? id)
         {
-            var web_Chia_Se_Tai_LieuContext = await _context.Documents.Include(d => d.PostByNavigation).Take(1).ToListAsync();
-            var web_Chia_Se_Tai_LieuContext2 = await _context.Documents.Include(d => d.PostByNavigation).Take(3).ToListAsync();
+            //var web_Chia_Se_Tai_LieuContext = await _context.Documents.Include(d => d.PostByNavigation).Take(1).ToListAsync();
+            //var web_Chia_Se_Tai_LieuContext2 = await _context.Documents.Include(d => d.PostByNavigation).Take(3).ToListAsync();
 
             if (id == null)
             {
@@ -48,13 +48,13 @@ namespace DAX_Block2_2024.Controllers
                 return NotFound();
             }
 
-            var viewModel = new ViewModelDocDetails
-            {
-                Document = web_Chia_Se_Tai_LieuContext,
-                Document3 = web_Chia_Se_Tai_LieuContext2,
-                DocumentDetails = document
-            };
-            return View(viewModel);
+            //var viewModel = new ViewModelDocDetails
+            //{
+            //    Document = web_Chia_Se_Tai_LieuContext,
+            //    Document3 = web_Chia_Se_Tai_LieuContext2,
+            //    DocumentDetails = document
+            //};
+            return View(document);
         }
 
         // GET: DocumentDetails/Details/5

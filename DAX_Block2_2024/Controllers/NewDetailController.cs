@@ -58,7 +58,6 @@ namespace DAX_Block2_2024.Controllers
             // Fetch up to 4 related news items that share any of the same subject IDs
             var relatedNewsTake4 = await _context.News
                 .Include(n => n.CreateByNavigation)
-                .Where(n => n.SubjectsNews.Any(sn => subjectIds.Contains(sn.SubjectId) && sn.NewsId != news.Id))
                 .OrderBy(n => n.CreateDate)
                 .Take(4)
                 .ToListAsync();
@@ -84,10 +83,10 @@ namespace DAX_Block2_2024.Controllers
         public async Task<IActionResult> GetMoreRelatedNews(int newsId)
         {
             var news = await _context.News
-                .Include(n => n.CreateByNavigation)
-                .Include(n => n.SubjectsNews)
-                .ThenInclude(sn => sn.Subject)
-                .FirstOrDefaultAsync(m => m.Id == newsId);
+                            .Include(n => n.CreateByNavigation)
+                            .Include(n => n.SubjectsNews)
+                            .ThenInclude(sn => sn.Subject)
+                            .FirstOrDefaultAsync(m => m.Id == newsId);
 
             if (news == null)
             {
@@ -140,30 +139,21 @@ namespace DAX_Block2_2024.Controllers
 
                 _context.CommentNews.Add(newComment);
                 await _context.SaveChangesAsync();
-
-                return Json(new { success = true });
+                var formattedDate = ((DateTime)newComment.CommentDate).ToString("MM/dd/yyyy");
+                return Json(new
+                {
+                    success = true,
+                    fullName = user.FullName,
+                    commentDate = formattedDate,
+                    comment = newComment.Content
+                });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while posting the comment.");
+                _logger.LogError(ex, "An error occurred while posting the comment.");
                 return Json(new { success = false, message = "An error occurred while posting the comment." });
             }
         }
-        [HttpGet]
-        public async Task<IActionResult> GetCommentsByUser(int newsId)
-        {
-            var comments = await _context.CommentNews
-                                .Where(c => c.NewsId == newsId)
-                                .Select(c => new {
-                                    c.Content,
-                                    c.CommentDate,
-                                    UserFullName = c.Users.FullName
-                                }).OrderBy(c => c.CommentDate)
-                                .ToListAsync();
-
-            return Json(comments);
-        }
-
-
-    }
+            }
 }

@@ -28,7 +28,7 @@ namespace DAX_Block2_2024
             services.AddDbContext<Web_Chia_Se_Tai_LieuContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DBConect")));
             services.AddSession(option =>
             {
-                option.IdleTimeout = TimeSpan.FromSeconds(180);
+                option.IdleTimeout = TimeSpan.FromSeconds(1000);
                 option.Cookie.HttpOnly = true;
                 option.Cookie.IsEssential = true;
             });

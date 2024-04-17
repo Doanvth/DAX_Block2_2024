@@ -66,7 +66,8 @@
                 <h4 class="fw-bold">Our Lateset Post</h4>
             </div>
             <div class="col-xl-2">
-                <button class="btn text-white bg-F36326 hover-button-F36326 border-0 float-end">View All</button>
+                <a class="btn text-white bg-F36326 hover-button-F36326 border-0 float-end"
+                   asp-controller="ListNewsUser" asp-action="Index">View All</a>
             </div>
         </div>
         <div class="row mt-5">
@@ -106,7 +107,10 @@
                 <h4 class="fw-bold">Popular News</h4>
             </div>
             <div class="col-xl-2">
-                <button class="btn text-white border-0 hover-button-F36326 float-end bg-F36326">View All</button>
+                <a class="btn text-white border-0 hover-button-F36326 float-end bg-F36326"
+                        asp-controller="Documents" asp-action="Index">
+                    View All
+                </a>
             </div>
         </div>
         <div class="row mt-5">

@@ -7,194 +7,209 @@
 }
 @model DAX_Block2_2024.Controllers.NewDetailController.ViewModelNewDetails
 @using Microsoft.AspNetCore.Http
-@* chỗ để user mấy thứ như like *@
-<div>
-    <div>
-        @foreach (var subjectNews in Model.NewsDetails.SubjectsNews)
-        {
-            <p>@subjectNews.Subject.Name</p>
-        }
-        <p>@Model.NewsDetails.CreateDate.ToShortDateString()</p>
-    </div>
-    <div>
-        <h3>@Model.NewsDetails.Title</h3>
-    </div>
-    <div>
-        <p>@Model.NewsDetails.CreateBy</p>
-    </div>
-    <div>
-        <p><i class="bi bi-hand-thumbs-up"></i> Like: 456</p>
-        <p><i class="bi bi-chat-left"></i> @Model.CommentOfNews.Count()</p>
-        <p><i class="bi bi-share"></i> Share: 23</p>
-    </div>
-</div>
-@* chỗ để content *@
-<div>
-    @Model.NewsDetails.Content
-</div>
-@* chỗ để bình luận *@
-<div class="row mb-5" id="postComment">
-    <div class="col-sm-10">
-        <!-- Ô điền comment -->
-        <form id="commentForm">
-            <div class="d-flex align-items-start">
-                <div class="pe-4">
-                    <img class="rounded-circle" width="50" height="50" style="background-color: gray;">
+
+<div class="row carousel slide" data-bs-ride="carousel">
+    <img class="img-fluid" src="~/images/bg-header.png" alt="">
+    <div class="container position-absolute text-white ps-104">
+        <div class="col-xl-8 col-sm-8 mt-111">
+            <div class="row">
+                <div class="col-xl-2 col-sm-2">
+                    @foreach (var subjectNews in Model.NewsDetails.SubjectsNews)
+                    {
+                        <p>@subjectNews.Subject.Name</p>
+                    }
                 </div>
-                <textarea class="form-control me-4 p-3" id="commentBox"
-                          placeholder="Write your comment here" required></textarea>
+                <div class="col-xl-4 col-sm-4">@Model.NewsDetails.CreateDate.Date.ToShortDateString()</div>
             </div>
 
-            <div class="d-block mb-5">
-                <button type="submit" class="btn rounded rounded-3 hover-button-F36326">Post Comment</button>
+            <div class="pe-5 mt-111">
+                <h2 class="fw-bold fs-62">Hot</h2>
+                <h2 class="fw-bold fs-62">@Model.NewsDetails.Title</h2>
+                <h2 class="fw-bold fs-62">@Model.NewsDetails.Content</h2>
+                <h2 class="fw-bold fs-62">@Model.NewsDetails.CreateDate.Date.ToShortDateString()</h2>
             </div>
-        </form>
-        <!-- Chỗ show những người đã comment -->
-        <div class="mb-5" id="comment">
-            @foreach (var item in Model.CommentOfNews)
-            {
+        </div>
+        <div class="row mt-40" style="padding-top: 40px;">
+            <div class="col-xl-1">
+                <img src="@Url.Content("~/uploads/newsImage/" + Model.NewsDetails.Image)" style="width: 48px; height: 48px;" class="rounded-circle img-fluid" alt="">
+            </div>
+            <div class="col-xl-11">
+                <p class="fs-16 fw-bold d-flex align-items-center pt-2"> @Model.NewsDetails.CreateByNavigation.FullName, @Model.NewsDetails.CreateDate.Date.ToShortDateString()</p>
+            </div>
+        </div>
+
+        <div class="row pt-40" style="padding-top: 30px;">
+            <div class="col-xl-1">
+                <i class="fa-regular fa-heart" style="color: #fff;"></i> 123
+            </div>
+            <div class="col-xl-1">
+                <i class="fa-regular fa-message" style="color: #fff;"></i> @Model.CommentOfNews.Count()
+            </div>
+            <div class="col-xl-1">
+                <i class="fa-solid fa-share-nodes" style="color: #fff;"></i></i> 123
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-60">
+    <div class="mt-60">
+        @Model.NewsDetails.Description
+    </div>
+    <div class="mt-60">
+        <img src="@Url.Content("~/uploads/newsImage/" + Model.NewsDetails.Image)" class="img-fluid w-100" alt="Alternate Text" />
+    </div>
+    <div class="mt-60">
+        @Model.NewsDetails.Description
+    </div>
+    @* chỗ để bình luận *@
+    <div class="row mb-5 mt-60" id="postComment">
+        <div class="col-sm-10">
+            <!-- Ô điền comment -->
+            <form id="commentForm">
                 <div class="d-flex align-items-start">
-                    <div class="pe-2">
-                        <img class="rounded-circle" width="50" height="50" style="background-color: gray;">
+                    <div class="pe-4">
+                        <img class="rounded-circle" width="50" height="50" src="@Url.Content("~/uploads/newsImage/" + Model.NewsDetails.Image)">
                     </div>
-                    <div class="pt-3 pe-3">
-                        <p id="posterName" class="fw-semibold">@item.Users.FullName</p>
-                    </div>
-                    <p class="pt-3" id="timePost">
-                        @(((DateTime)item.CommentDate).ToString("MM/dd/yyyy"))
-                    </p>
+                    <textarea class="form-control me-4 p-3" id="commentBox"
+                              placeholder="Write your comment here" required></textarea>
                 </div>
-                <div class="d-block" id="contentComment">
-                    <p class="text-start">
-                        @item.Content
-                    </p>
-                </div>
-            }
-        </div>
-    </div>
-</div>
-<div class="row mb-5" id="relatedPost">
-    <div class="col-sm-10">
-        <div class="d-flex justify-content-between">
-            <div class="title">
-                <span>
-                    Related Post
-                </span>
-            </div>
-            <div class="showAll rounded rounded-3 hover-button-F36326">
-                <div>
-                    <button type="button" class="btn btnShowAll">View All</button>
-                </div>
-            </div>
-        </div>
 
-        <div class="row my-4" id="listRelatedPost">
-            @foreach (var news in Model.RelatedNewsTake4)
-            {
-                <div class="col-sm-3 pe-2">
-                    <a href="#" class="card-link nav-link">
-                        <div class="card hover-list-popular" style="border: none!important;">
-                            <div class="position-relative">
-                                <img class="card-img-top" src="@Url.Content("~/uploads/newsImage/"+news.Image)" alt="News Image" width="300px" height="320px">
-                                <div class="position-absolute start-0" style="bottom: -16px!important;">
-                                    @foreach (var subjectNews in Model.NewsDetails.SubjectsNews)
-                                    {
-                                        <p id="topic">@subjectNews.Subject.Name</p>
-                                    }
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-title">@news.Title</p>
-                                <div class="card-text d-flex align-items-start">
-                                    <div class="pt-3 pe-3">
-                                        <p id="posterName">@news.CreateByNavigation.FullName</p>
-                                    </div>
-                                    <p class="pt-3" id="timePost">@news.CreateDate.ToString("MMM dd, yyyy")</p>
-                                </div>
-                            </div>
+                <div class="d-block mb-5 mt-3 ms-5">
+                    <button type="submit" class="btn text-white bg-F36326 hover-button-F36326 border-0">Post Comment</button>
+                </div>
+            </form>
+            <!-- Chỗ show những người đã comment -->
+            <div class="mb-5" id="comment">
+                @foreach (var item in Model.CommentOfNews)
+                {
+                    <div class="d-flex align-items-start">
+                        <div class="pe-2">
+                            <img class="rounded-circle" width="50" height="50" src="@Url.Content("~/uploads/newsImage/" + Model.NewsDetails.Image)">
                         </div>
-                    </a>
+                        <div class="pt-3 pe-3">
+                            <p id="posterName" class="fw-semibold">@item.Users.FullName</p>
+                        </div>
+                        <p class="pt-3" id="timePost">
+                            @(((DateTime)item.CommentDate).ToString("MM/dd/yyyy"))
+                        </p>
+                    </div>
+                    <div class="d-block" id="contentComment">
+                        <p class="text-start">
+                            @item.Content
+                        </p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row mb-5" id="relatedPost">
+        <div class="col-sm-10">
+            <div class="d-flex justify-content-between">
+                <div class="title">
+                    <span>
+                        Related Post
+                    </span>
                 </div>
-            }
+                <div class="showAll rounded rounded-3 hover-button-F36326">
+                    <div>
+                        <a type="button" class="btn text-white bg-F36326 hover-button-F36326 border-0 float-end btnShowAll"
+                           asp-action="Index"
+                           asp-controller="ListNewsUser">View All</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-4" id="listRelatedPost">
+                @foreach (var news in Model.RelatedNewsTake4)
+                {
+                    <div class="col-sm-3 pe-2">
+                        <a href="#" class="card-link nav-link">
+                            <div class="card hover-list-popular" style="border: none!important;">
+                                <div class="position-relative">
+                                    <img class="card-img-top" src="@Url.Content("~/uploads/newsImage/"+news.Image)" alt="News Image" width="300px" height="320px">
+                                    <div class="position-absolute start-0" style="bottom: -16px!important;">
+                                        @foreach (var subjectNews in Model.NewsDetails.SubjectsNews)
+                                        {
+                                            <p id="topic">@subjectNews.Subject.Name</p>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-title">@news.Title</p>
+                                    <div class="card-text d-flex align-items-start">
+                                        <div class="pt-3 pe-3">
+                                            <p id="posterName">@news.CreateByNavigation.FullName</p>
+                                        </div>
+                                        <p class="pt-3" id="timePost">@news.CreateDate.ToString("MMM dd, yyyy")</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>
+
 <script>
-$(document).ready(function() {
-    $('#commentForm').submit(function(e) {
-        e.preventDefault();
+    $(document).ready(function () {
+        $('#commentForm').submit(function (e) {
+            e.preventDefault();
 
-        var username = '@username';
-        var newsId = @Model.NewsDetails.Id;
-        var comment = $('#commentBox').val();
+            var username = '@username';
+            var newsId = @Model.NewsDetails.Id;
+            var comment = $('#commentBox').val();
 
-        var currentDate = new Date();
-        var formattedDate = (currentDate.getMonth() + 1).toString().padStart(2, '0') + '/'
-                          + currentDate.getDate().toString().padStart(2, '0') + '/'
-                          + currentDate.getFullYear();
+            var currentDate = new Date();
+            var formattedDate = (currentDate.getMonth() + 1).toString().padStart(2, '0') + '/'
+                + currentDate.getDate().toString().padStart(2, '0') + '/'
+                + currentDate.getFullYear();
 
-        $.ajax({
-            url: '@Url.Action("PostComment", "NewDetail")',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                comment: comment,
-                username: username,
-                newsId: newsId,
-                commentDate: formattedDate
-            }),
-            success: function(response) {
-                if (response.success) {
-                    // Fetch comments for the user
-                    fetchUserComments(newsId);
-                    $('#commentBox').val(''); // Clear the comment box
-                    alert('Comment posted successfully!');
-                } else {
-                    alert('Error: ' + response.message);
-                }
-            },
-            error: function(xhr, status, error) {
-                alert('Error: ' + xhr.responseText);
-            }
-        });
-
-        function fetchUserComments(newsId) {
             $.ajax({
-                url: '@Url.Action("GetCommentsByUser", "NewDetail")',
-                type: 'GET',
-                data: { username: username },
-                success: function(comments) {
-                    $('#comment').empty(); // Clear existing comments
-                    comments.forEach(function(comment) {
-                        $('#comment').prepend(
-                            `<div class="d-flex align-items-start">
-                                <div class="pe-2">
-                                    <img class="rounded-circle" width="50" height="50" style="background-color: gray;">
-                                </div>
-                                <div class="pt-3 pe-3">
-                                    <p id="posterName" class="fw-semibold">${comment.UserFullName}</p>
-                                </div>
-                                <p class="pt-3" id="timePost">${new Date(comment.CommentDate).toLocaleDateString("en-US")}</p>
-                            </div>
-                            <div class="d-block" id="contentComment">
-                                <p class="text-start">${comment.Content}</p>
-                            </div>`
-                        );
-                    });
+                url: '@Url.Action("PostComment", "NewDetail")',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    comment: comment,
+                    username: username,
+                    newsId: newsId,
+                    commentDate: formattedDate
+                }),
+                success: function (response) {
+                    if (response.success) {
+                        // Dynamically add the new comment to the comments section
+                        var newCommentHtml = '<div class="d-flex align-items-start">' +
+                            '<div class="pe-2">' +
+                            '<img class="rounded-circle" width="50" height="50" style="background-color: gray;">' +
+                            '</div>' +
+                            '<div class="pt-3 pe-3">' +
+                            '<p id="posterName" class="fw-semibold">' + response.fullName + '</p>' +
+                            '</div>' +
+                            '<p class="pt-3" id="timePost">' + response.commentDate + '</p>' +
+                            '</div>' +
+                            '<div class="d-block" id="contentComment">' +
+                            '<p class="text-start">' + response.comment + '</p>' +
+                            '</div>';
+                        $('#comment').prepend(newCommentHtml);
+
+                        // Clear the comment box and give a success message
+                        $('#commentBox').val('');
+                        alert('Comment posted successfully!');
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
                 },
-                error: function(xhr, status, error) {
-                    console.error("An error occurred while fetching comments: " + error);
+                error: function (xhr, status, error) {
+                    alert('Error: ' + xhr.responseText);
                 }
             });
-        }
+
+
+        });
     });
-});
 </script>
-
-
-
-
-
 <script>
     $(document).ready(function () {
         $('.btnShowAll').click(function () {
@@ -209,16 +224,3 @@ $(document).ready(function() {
                 },
                 error: function (xhr, status, error) {
                     console.error("An error occurred: " + error);
-                    $('#listRelatedPost').html('<p class="text-danger">Failed to load related posts. Please try again later.</p>');
-                }
-            });
-        });
-    });
-</script>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
-
